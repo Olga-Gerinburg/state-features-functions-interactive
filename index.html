@@ -1,0 +1,2609 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поняття, ознаки та сутність держави — Інтерактивне заняття</title>
+    <!-- Фавікон: античний храм 16x16 -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><text y=%2214%22 font-size=%2214%22>🏛️</text></svg>">
+    <style>
+        :root {
+            --header-bg: #2C3E50;
+            --btn-orange: #E65100;
+            --active-blue: #2196F3;
+            --bg-color: #F5F7FA;
+            --card-bg: #FFFFFF;
+            --text-color: #2C3E50;
+            --success-green: #2ECC71;
+            --success-bg: #E8F8F5;
+            --error-red: #E74C3C;
+            --error-bg: #FDEDEC;
+            --info-blue: #2980B9;
+            --info-bg: #EBF5FB;
+            --border-color: #DCDDE1;
+            --muted-text: #7F8C8D;
+            --turquoise: #008080;
+            --turquoise-light: #E0F2F1;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-bottom: 40px;
+        }
+
+        header {
+            background-color: var(--header-bg);
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .subtitle-top {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #BDC3C7;
+            margin-bottom: 6px;
+        }
+
+        h1 {
+            font-size: 1.7rem;
+            margin-bottom: 10px;
+        }
+
+        .reset-global-btn {
+            position: absolute;
+            top: 25px;
+            right: 20px;
+            background-color: var(--btn-orange);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+
+        .reset-global-btn:hover {
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 25px auto;
+            padding: 0 15px;
+        }
+
+        .page-nav {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            transition: all 0.2s;
+        }
+
+        .nav-btn.active, .nav-btn:hover {
+            background-color: var(--active-blue);
+            color: white;
+            border-color: var(--active-blue);
+        }
+
+        .page-section {
+            display: none;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+            border: 1px solid var(--border-color);
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        .subpage-arrows {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        h2 {
+            color: var(--header-bg);
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--active-blue);
+            font-size: 1.4rem;
+        }
+
+        h3 {
+            color: var(--header-bg);
+            margin: 20px 0 10px 0;
+            font-size: 1.1rem;
+        }
+
+        p, li {
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        i, em, .instruction {
+            color: var(--muted-text);
+            font-style: italic;
+        }
+
+        /* Липкий блок для заголовка завдання та кнопки перевірки */
+        .sticky-task-wrapper {
+            position: sticky;
+            top: 0;
+            background-color: #fafbfc;
+            z-index: 20;
+            border-bottom: 2px solid var(--border-color);
+            box-shadow: 0 4px 6px -4px rgba(0,0,0,0.1);
+        }
+
+        .sticky-task-header {
+            padding: 15px 20px 10px 20px;
+        }
+
+        /* Контейнер з прокруткою для великих таблиць */
+        .table-scroll-container {
+            max-height: 60vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        table.fixed-table, table.fixed-table-3, table.matrix-table {
+            width: 100%;
+            table-layout: fixed;
+            border-collapse: collapse;
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        /* Ширина колонок для завдання 2.1 */
+        table.fixed-table-3 th:nth-child(1), table.fixed-table-3 td:nth-child(1) { width: 44%; }
+        table.fixed-table-3 th:nth-child(2), table.fixed-table-3 td:nth-child(2) { width: 28%; }
+        table.fixed-table-3 th:nth-child(3), table.fixed-table-3 td:nth-child(3) { width: 28%; }
+
+        /* Ширина колонок для завдання 2.2 */
+        table.matrix-table th:nth-child(1), table.matrix-table td:nth-child(1) { width: 32%; }
+        table.matrix-table th:nth-child(2), table.matrix-table td:nth-child(2) { width: 15%; text-align: center; }
+        table.matrix-table th:nth-child(3), table.matrix-table td:nth-child(3) { width: 15%; text-align: center; }
+        table.matrix-table th:nth-child(4), table.matrix-table td:nth-child(4) { width: 15%; text-align: center; }
+        table.matrix-table th:nth-child(5), table.matrix-table td:nth-child(5) { width: 23%; }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        /* Надійне фіксування шапки всередині єдиної таблиці */
+        table.fixed-table-3 thead th,
+        table.matrix-table thead th {
+            position: sticky;
+            top: 0;
+            background-color: #f0f3f6;
+            color: var(--header-bg);
+            z-index: 10;
+            box-shadow: 0 2px 2px -1px rgba(0,0,0,0.15);
+        }
+
+        th {
+            background-color: var(--bg-color);
+            color: var(--header-bg);
+        }
+
+        select {
+            padding: 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            width: 100%;
+            background: white;
+            font-size: 0.95rem;
+        }
+
+        select.correct, .m-form-cell.correct {
+            border-color: var(--success-green) !important;
+            background-color: var(--success-bg) !important;
+            color: #196F3D !important;
+            font-weight: 600;
+        }
+
+        select.incorrect, .m-form-cell.incorrect {
+            border-color: var(--error-red) !important;
+            background-color: var(--error-bg) !important;
+            color: #78281F !important;
+            font-weight: 600;
+        }
+
+        td:has(> input[type="checkbox"].m-cell).correct {
+            background-color: var(--success-bg) !important;
+            border-color: var(--success-green) !important;
+        }
+        td:has(> input[type="checkbox"].m-cell).incorrect {
+            background-color: var(--error-bg) !important;
+            border-color: var(--error-red) !important;
+        }
+
+        .flashcard-container {
+            perspective: 1000px;
+            width: 100%;
+            max-width: 380px;
+            height: 180px; /* Збільшено висоту, щоб текст не виходив за рамки */
+            margin: 15px auto;
+            cursor: pointer;
+        }
+
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .flashcard-container.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--turquoise);
+            background-color: var(--turquoise-light);
+            overflow: hidden;
+        }
+
+        .flashcard-front .term-title {
+            color: var(--turquoise);
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .flashcard-back {
+            background-color: var(--turquoise-light);
+            color: var(--header-bg);
+            transform: rotateY(180deg);
+            font-size: 0.9rem;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        .highlight {
+            color: #D68910;
+            font-weight: bold;
+            background-color: #FEF9E7;
+            padding: 1px 3px;
+            border-radius: 3px;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .mini-card {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .matching-wrapper {
+            position: relative;
+            margin: 15px 0;
+        }
+
+        .matching-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .matching-column {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .match-item {
+            background: white;
+            border: 1px solid var(--border-color);
+            padding: 12px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+            position: relative;
+        }
+
+        .match-item:hover {
+            border-color: var(--active-blue);
+            background: var(--info-bg);
+        }
+
+        .match-item.selected {
+            background: var(--info-bg) !important;
+            border-color: var(--info-blue) !important;
+            color: var(--text-color) !important;
+            font-weight: 600;
+        }
+
+        .match-item.matched-correct {
+            background: var(--success-bg) !important;
+            border-color: var(--success-green) !important;
+            color: #196F3D !important;
+            font-weight: 600;
+        }
+
+        .match-item.matched-error {
+            background: var(--error-bg) !important;
+            border-color: var(--error-red) !important;
+            color: #78281F !important;
+            font-weight: 600;
+        }
+
+        svg.match-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .test-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .test-option {
+            display: block;
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin: 8px 0;
+            cursor: pointer;
+            color: var(--muted-text);
+            transition: background 0.2s;
+        }
+
+        .test-option:hover {
+            background: #edf2f7;
+        }
+
+        .test-option input {
+            margin-right: 10px;
+        }
+
+        .test-option.correct-choice {
+            background-color: var(--success-bg) !important;
+            border-color: var(--success-green) !important;
+            color: #196F3D !important;
+            font-weight: 600;
+        }
+
+        .test-option.incorrect-choice {
+            background-color: var(--error-bg) !important;
+            border-color: var(--error-red) !important;
+            color: #78281F !important;
+        }
+
+        .explanation-box {
+            margin-top: 10px;
+            padding: 12px;
+            background-color: var(--info-bg);
+            border: 1px solid #85C1E9;
+            border-radius: 6px;
+            color: var(--info-blue);
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .task-box {
+            background: #fafbfc;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .task-box-inner {
+            padding: 20px;
+        }
+
+        .task-btn {
+            background-color: var(--active-blue);
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: opacity 0.2s;
+        }
+
+        .task-btn:hover {
+            opacity: 0.9;
+        }
+
+        .grid-2x2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        @media(max-width: 768px) {
+            .grid-2x2 {
+                grid-template-columns: 1fr;
+            }
+            .matching-container {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+        }
+
+        .yn-group {
+            display: flex;
+            gap: 15px;
+            margin: 10px 0;
+        }
+
+        .yn-box {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+            background: white;
+            transition: all 0.2s;
+            color: var(--text-color);
+        }
+
+        .yn-box.selected {
+            background: var(--info-bg) !important;
+            border-color: var(--info-blue) !important;
+            color: var(--info-blue) !important;
+        }
+
+        .yn-box.correct {
+            background: var(--success-bg) !important;
+            border-color: var(--success-green) !important;
+            color: #196F3D !important;
+        }
+
+        .yn-box.incorrect {
+            background: var(--error-bg) !important;
+            border-color: var(--error-red) !important;
+            color: #78281F !important;
+        }
+
+        .schemas-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .schema-card-slot {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            height: 180px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 10px 32px 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .schema-card-slot img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        .schema-card-slot .schema-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(44, 62, 80, 0.85);
+            color: white;
+            padding: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .schema-card-slot:hover {
+            border-color: var(--active-blue);
+        }
+
+        .schema-card-slot.correct {
+            border-color: var(--success-green) !important;
+            background-color: var(--success-bg) !important;
+            box-shadow: 0 0 10px rgba(46, 204, 113, 0.4);
+        }
+
+        .schema-card-slot.incorrect {
+            border-color: var(--error-red) !important;
+            background-color: var(--error-bg) !important;
+            box-shadow: 0 0 10px rgba(231, 76, 60, 0.4);
+        }
+
+        .feedback-inline {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .hint-box {
+            background: #FEF9E7;
+            border: 1px solid #F9E79F;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 12px;
+            display: none;
+            font-size: 0.95rem;
+        }
+        .hint-box.show {
+            display: block;
+        }
+
+        .explanation-text {
+            font-size: 0.85rem;
+            color: #5D6D7E;
+            margin-top: 6px;
+            display: none;
+            line-height: 1.4;
+        }
+        .explanation-text.show {
+            display: block;
+        }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--header-bg);
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            z-index: 100;
+        }
+        .scroll-top.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--muted-text);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="subtitle-top">Основи правознавства</div>
+        <h1>Поняття, ознаки та сутність держави</h1>
+        <button class="reset-global-btn" onclick="resetAllProgress()">Почати заново</button>
+    </header>
+
+    <div class="container">
+        <!-- Верхня навігація (7 сторінок) -->
+        <div class="page-nav">
+            <button class="nav-btn active" onclick="switchPage(1)">Держава: поняття, ознаки</button>
+            <button class="nav-btn" onclick="switchPage(2)">Близькі правові поняття</button>
+            <button class="nav-btn" onclick="switchPage(3)">Функції держави</button>
+            <button class="nav-btn" onclick="switchPage(4)">Форми і методи функцій</button>
+            <button class="nav-btn" onclick="switchPage(5)">Суверенітет та його види</button>
+            <button class="nav-btn" onclick="switchPage(6)">Правова держава і громадянське суспільство</button>
+            <button class="nav-btn" onclick="switchPage(7)">Підсумковий тест</button>
+        </div>
+
+        <!-- СТОРІНКА 1: Блок 1 (Частина 1: завдання 1.1 — 1.2) -->
+        <section id="page-1" class="page-section active">
+            <h2>Тема 1. Поняття та ознаки держави (Частина 1)</h2>
+            
+            <h3>Завдання 1.1. Аналіз визначень</h3>
+            <p><em>Прокоментуйте два історичні підходи до розуміння сутності держави:</em></p>
+            <div class="cards-grid">
+                <div class="mini-card">1) Політична організація панівного класу</div>
+                <div class="mini-card">2) Політична організація всього суспільства</div>
+            </div>
+            
+            <p style="margin-top: 15px; text-align: center;"><em>Натисніть на картку, щоб перегорнути її та побачити наукове визначення:</em></p>
+            <div class="flashcard-container" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">
+                        <span class="term-title">ДЕРЖАВА</span>
+                    </div>
+                    <div class="flashcard-back">
+                        <div style="font-weight: bold; color: var(--turquoise); margin-bottom: 4px; font-size: 0.85rem; text-transform: uppercase;">ДЕРЖАВА</div>
+                        <p style="margin: 0;">Історично сформована <span class="highlight">суверенна</span> політико-<span class="highlight">територіальна</span> організація суспільства, що має спеціальний <span class="highlight">апарат</span> управління й примусу та видає загальнообов'язкові <span class="highlight">закони</span>.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="task-box">
+                <div class="task-box-inner">
+                    <h3>Завдання 1.2. Класифікація ознак держави</h3>
+                    <p><em>Розподіліть запропоновані ознаки на обов'язкові та факультативні:</em></p>
+                </div>
+                <table class="fixed-table" style="padding: 0 20px;">
+                    <tr>
+                        <th>Характеристика</th>
+                        <th>Група ознак</th>
+                    </tr>
+                    <tr>
+                        <td>Збройні сили (армія)</td>
+                        <td>
+                            <select class="t1-2" data-correct="optional" data-explanation="Пояснення: держава може існувати без власної армії. Наприклад, Ісландія не має власних збройних сил, а Японія має Сили самооборони замість традиційної армії." onchange="saveState()">
+                                <option value="">-- оберіть --</option>
+                                <option value="obligatory">Обов'язкова ознака</option>
+                                <option value="optional">Факультативна ознака</option>
+                            </select>
+                            <div class="explanation-text"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Територія, обмежена кордонами</td>
+                        <td>
+                            <select class="t1-2" data-correct="obligatory" onchange="saveState()">
+                                <option value="">-- оберіть --</option>
+                                <option value="obligatory">Обов'язкова ознака</option>
+                                <option value="optional">Факультативна ознака</option>
+                            </select>
+                            <div class="explanation-text"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Державна символіка (герб, прапор, гімн)</td>
+                        <td>
+                            <select class="t1-2" data-correct="optional" data-explanation="Пояснення: державні символи з'явилися значно пізніше за самі держави; давні держави та більшість середньовічних держав не мали офіційної державної символіки." onchange="saveState()">
+                                <option value="">-- оберіть --</option>
+                                <option value="obligatory">Обов'язкова ознака</option>
+                                <option value="optional">Факультативна ознака</option>
+                            </select>
+                            <div class="explanation-text"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Публічна влада</td>
+                        <td>
+                            <select class="t1-2" data-correct="obligatory" onchange="saveState()">
+                                <option value="">-- оберіть --</option>
+                                <option value="obligatory">Обов'язкова ознака</option>
+                                <option value="optional">Факультативна ознака</option>
+                            </select>
+                            <div class="explanation-text"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Власна грошова система / грошова одиниця</td>
+                        <td>
+                            <select class="t1-2" data-correct="optional" data-explanation="Пояснення: держава може існувати без власної грошової одиниці; не всі держави мають власну валюту." onchange="saveState()">
+                                <option value="">-- оберіть --</option>
+                                <option value="obligatory">Обов'язкова ознака</option>
+                                <option value="optional">Факультативна ознака</option>
+                            </select>
+                            <div class="explanation-text"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Апарат примусу</td>
+                        <td>
+                            <select class="t1-2" data-correct="obligatory" onchange="saveState()">
+                                <option value="">-- оберіть --</option>
+                                <option value="obligatory">Обов'язкова ознака</option>
+                                <option value="optional">Факультативна ознака</option>
+                            </select>
+                            <div class="explanation-text"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Державна (офіційна) мова</td>
+                        <td>
+                            <select class="t1-2" data-correct="optional" data-explanation="Пояснення: не всі держави офіційно визначають державну мову; її відсутність не перешкоджає існуванню держави." onchange="saveState()">
+                                <option value="">-- оберіть --</option>
+                                <option value="obligatory">Обов'язкова ознака</option>
+                                <option value="optional">Факультативна ознака</option>
+                            </select>
+                            <div class="explanation-text"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Податкова система</td>
+                        <td>
+                            <select class="t1-2" data-correct="obligatory" onchange="saveState()">
+                                <option value="">-- оберіть --</option>
+                                <option value="obligatory">Обов'язкова ознака</option>
+                                <option value="optional">Факультативна ознака</option>
+                            </select>
+                            <div class="explanation-text"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Система права</td>
+                        <td>
+                            <select class="t1-2" data-correct="obligatory" onchange="saveState()">
+                                <option value="">-- оберіть --</option>
+                                <option value="obligatory">Обов'язкова ознака</option>
+                                <option value="optional">Факультативна ознака</option>
+                            </select>
+                            <div class="explanation-text"></div>
+                        </td>
+                    </tr>
+                </table>
+                <div style="padding: 15px 20px;">
+                    <button class="task-btn" onclick="checkTask('t1-2')">Перевірити</button>
+                    <div class="feedback-inline" id="fb-t1-2"></div>
+                </div>
+            </div>
+
+            <!-- Стрілки переходу -->
+            <div class="subpage-arrows">
+                <div></div>
+                <button class="task-btn" onclick="switchPage(2)">Далі (Завдання 1.3–1.5) →</button>
+            </div>
+        </section>
+
+        <!-- СТОРІНКА 2: Блок 1 (Частина 2: завдання 1.3 — 1.5) -->
+        <section id="page-2" class="page-section">
+            <h2>Тема 1. Поняття та ознаки держави (Частина 2)</h2>
+
+            <!-- ЗАВДАННЯ 1.3: ПУБЛІЧНА ТА ДЕРЖАВНА ВЛАДА + ТАБЛИЦЯ ПРИКЛАДІВ -->
+            <div class="task-box">
+                <div class="task-box-inner">
+                    <h3>Завдання 1.3. Публічна та державна влада</h3>
+                    <p><em>Натисніть по черзі на термін та його визначення, щоб з'єднати їх парою:</em></p>
+                    
+                    <div class="matching-wrapper">
+                        <svg class="match-lines" id="svg-t13_b1"></svg>
+                        <div class="matching-container" id="match-container-1-b1">
+                            <div class="matching-column">
+                                <div class="match-item" data-id="pub" onclick="handleMatchClick(this, 't13_b1', 'pub', 'term')">Публічна влада</div>
+                                <div class="match-item" data-id="state" onclick="handleMatchClick(this, 't13_b1', 'state', 'term')">Державна влада</div>
+                            </div>
+                            <div class="matching-column">
+                                <div class="match-item" data-id="state" onclick="handleMatchClick(this, 't13_b1', 'state', 'def')">Форма влади, що здійснюється спеціально створеними органами — парламентом, урядом, судами тощо — і поширюється на всю територію держави; має право ухвалювати загальнообов’язкові рішення, стягувати податки та застосовувати державний примус у передбачених законом випадках.</div>
+                                <div class="match-item" data-id="pub" onclick="handleMatchClick(this, 't13_b1', 'pub', 'def')">Влада, що здійснюється від імені всього суспільства на певній території та спрямована на організацію спільного життя, забезпечення порядку й задоволення суспільних потреб; охоплює діяльність державних органів і органів місцевого самоврядування.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="task-btn" style="margin-top: 15px;" onclick="checkTask('t1-3')">Перевірити відповідність</button>
+                    <div class="feedback-inline" id="fb-t1-3"></div>
+
+                    <!-- ТАБЛИЦЯ ПРИКЛАДІВ ДО 1.3 -->
+                    <div style="margin-top: 30px;">
+                        <p><b>Перевірка розуміння на прикладах:</b> <em>Позначте прапорцями твердження, які належать до відповідної категорії:</em></p>
+                        <table class="fixed-table" style="margin-top: 10px;">
+                            <tr>
+                                <th>Публічна влада</th>
+                                <th>Державна влада</th>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top;">
+                                    <label class="test-option" style="background: white;"><input type="checkbox" class="ex-chk-t13" data-col="pub" data-correct="true" onchange="saveState()"> Селищна рада затвердила місцевий бюджет і визначила, на що спрямувати кошти громади</label>
+                                    <label class="test-option" style="background: white;"><input type="checkbox" class="ex-chk-t13" data-col="pub" data-correct="false" data-explanation="Це державна влада." onchange="saveState()"> Верховна Рада України ухвалила закон, обов'язковий на всій території України</label>
+                                    <label class="test-option" style="background: white;"><input type="checkbox" class="ex-chk-t13" data-col="pub" data-correct="true" onchange="saveState()"> Місцева рада ухвалила рішення про створення комунального підприємства для обслуговування громади</label>
+                                    <label class="test-option" style="background: white;"><input type="checkbox" class="ex-chk-t13" data-col="pub" data-correct="false" data-explanation="Це державна влада." onchange="saveState()"> Суд ухвалив рішення у справі, яке підлягає виконанню у встановленому законом порядку</label>
+                                </td>
+                                <td style="vertical-align: top;">
+                                    <label class="test-option" style="background: white;"><input type="checkbox" class="ex-chk-t13" data-col="state" data-correct="true" onchange="saveState()"> Кабінет Міністрів України ухвалив постанову, обов'язкову для виконання на всій території держави</label>
+                                    <label class="test-option" style="background: white;"><input type="checkbox" class="ex-chk-t13" data-col="state" data-correct="true" onchange="saveState()"> Державний орган нарахував і стягнув передбачений законом податок</label>
+                                    <label class="test-option" style="background: white;"><input type="checkbox" class="ex-chk-t13" data-col="state" data-correct="false" data-explanation="Це публічна влада (місцеве самоврядування)." onchange="saveState()"> Орган місцевого самоврядування встановив правила благоустрою території громади</label>
+                                    <label class="test-option" style="background: white;"><input type="checkbox" class="ex-chk-t13" data-col="state" data-correct="false" data-explanation="Це публічна влада (місцеве самоврядування)." onchange="saveState()"> Територіальна громада через органи місцевого самоврядування вирішує питання місцевого значення</label>
+                                </td>
+                            </tr>
+                        </table>
+                        <button class="task-btn" style="margin-top: 10px;" onclick="checkTask('t1-3-ex')">Перевірити приклади</button>
+                        <div class="feedback-inline" id="fb-t1-3-ex"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ЗАВДАННЯ 1.4: СТРУКТУРА І МЕХАНІЗМ ДЕРЖАВИ + ТАБЛИЦЯ ПРИКЛАДІВ -->
+            <div class="task-box">
+                <div class="task-box-inner">
+                    <h3>Завдання 1.4. Механізм і апарат держави</h3>
+                    <p><em>Натисніть по черзі на термін та його визначення в кожному блоці, щоб з'єднати їх парою:</em></p>
+                    
+                    <div class="matching-wrapper">
+                        <svg class="match-lines" id="svg-t13_b2"></svg>
+                        <div class="matching-container" id="match-container-1-b2">
+                            <div class="matching-column">
+                                <div class="match-item" data-id="mech" onclick="handleMatchClick(this, 't13_b2', 'mech', 'term')">Механізм держави</div>
+                                <div class="match-item" data-id="app" onclick="handleMatchClick(this, 't13_b2', 'app', 'term')">Апарат держави</div>
+                                <div class="match-item" data-id="comp" onclick="handleMatchClick(this, 't13_b2', 'comp', 'term')">Апарат примусу</div>
+                            </div>
+                            <div class="matching-column">
+                                <div class="match-item" data-id="app" onclick="handleMatchClick(this, 't13_b2', 'app', 'def')">Система державних органів, які наділені владними повноваженнями (парламент, уряд, суди, президент, місцеві органи влади).</div>
+                                <div class="match-item" data-id="comp" onclick="handleMatchClick(this, 't13_b2', 'comp', 'def')">Структурний елемент апарату держави, який безпосередньо забезпечує виконання законів і волі держави за допомогою сили або загрози її застосування.</div>
+                                <div class="match-item" data-id="mech" onclick="handleMatchClick(this, 't13_b2', 'mech', 'def')">Вся система державних органів та установ, які здійснюють державну владу і виконують державні функції.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="task-btn" style="margin-top: 15px;" onclick="checkTask('t1-4-match')">Перевірити відповідність</button>
+                    <div class="feedback-inline" id="fb-t1-4-match"></div>
+
+                    <!-- ТАБЛИЦЯ ПРИКЛАДІВ ДО 1.4 -->
+                    <div style="margin-top: 30px;">
+                        <p><b>Перевірка розуміння на прикладах:</b> <em>Позначте прапорцями правильні категорії для наведених прикладів:</em></p>
+                        <table class="fixed-table" style="margin-top: 10px;">
+                            <tr>
+                                <th style="width: 33%;">Механізм держави</th>
+                                <th style="width: 33%;">Апарат держави</th>
+                                <th style="width: 34%;">Апарат примусу</th>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top;">
+                                    <label class="test-option" style="background: white;"><input type="checkbox" class="ex-chk-t14" data-col="mech" data-correct="true" onchange="saveState()"> Київський національний університет імені Тараса Шевченка</label>
+                                    <label class="test-option" style="background: white;"><input type="checkbox" class="ex-chk-t14" data-col="mech" data-correct="false" data-explanation="Це елемент апарату держави (орган влади)." onchange="saveState()"> Центральна виборча комісія (ЦВК)</label>
+                                    <label class="test-option" style="background: white;"><input type="checkbox" class="ex-chk-t14" data-col="mech" data-correct="true" onchange="saveState()"> Національна дитяча спеціалізована лікарня «Охматдит»</label>
+                                    <label class="test-option" style="background: white;"><input type="checkbox" class="ex-chk-t14" data-col="mech" data-correct="false" data-explanation="Це елемент апарату примусу (силовий блок)." onchange="saveState()"> Служба безпеки України (СБУ)</label>
+                                </td>
+                                <td style="vertical-align: top;">
+                                    <label class="test-option" style="background: white;"><input type="checkbox" class="ex-chk-t14" data-col="app" data-correct="true" onchange="saveState()"> Президент України як глава держави та окремий орган влади</label>
+                                    <label class="test-option" style="background: white;"><input type="checkbox" class="ex-chk-t14" data-col="app" data-correct="false" data-explanation="Це державна установа, що входить до механізму держави." onchange="saveState()"> Національний заповідник «Києво-Печерська лавра»</label>
+                                    <label class="test-option" style="background: white;"><input type="checkbox" class="ex-chk-t14" data-col="app" data-correct="true" onchange="saveState()"> Центральна виборча комісія (ЦВК)</label>
+                                    <label class="test-option" style="background: white;"><input type="checkbox" class="ex-chk-t14" data-col="app" data-correct="false" data-explanation="Це структура апарату примусу (силовий блок)." onchange="saveState()"> Збройні Сили України (ЗСУ)</label>
+                                </td>
+                                <td style="vertical-align: top;">
+                                    <label class="test-option" style="background: white;"><input type="checkbox" class="ex-chk-t14" data-col="comp" data-correct="true" onchange="saveState()"> Збройні Сили України (ЗСУ)</label>
+                                    <label class="test-option" style="background: white;"><input type="checkbox" class="ex-chk-t14" data-col="comp" data-correct="false" data-explanation="Це державний заклад освіти, що входить до механізму держави." onchange="saveState()"> Київський національний університет імені Тараса Шевченка</label>
+                                    <label class="test-option" style="background: white;"><input type="checkbox" class="ex-chk-t14" data-col="comp" data-correct="true" onchange="saveState()"> Служба безпеки України (СБУ)</label>
+                                    <label class="test-option" style="background: white;"><input type="checkbox" class="ex-chk-t14" data-col="comp" data-correct="false" data-explanation="Це центральний орган виконавчої влади (апарат держави)." onchange="saveState()"> Міністерство фінансів України</label>
+                                </td>
+                            </tr>
+                        </table>
+                        <button class="task-btn" style="margin-top: 10px;" onclick="checkTask('t1-4-ex')">Перевірити приклади</button>
+                        <div class="feedback-inline" id="fb-t1-4-ex"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ЗАВДАННЯ 1.5: ПРАВОВІ СИСТЕМИ ТА СИСТЕМИ ЗАКОНОДАВСТВА + ТАБЛИЦЯ ПРИКЛАДІВ -->
+            <div class="task-box">
+                <div class="task-box-inner">
+                    <h3>Завдання 1.5. Правова система, система права та система законодавства</h3>
+                    <p><em>Натисніть по черзі на термін та його визначення в кожному блоці, щоб з'єднати їх парою:</em></p>
+                    
+                    <div class="matching-wrapper">
+                        <svg class="match-lines" id="svg-t13_b3"></svg>
+                        <div class="matching-container" id="match-container-1-b3">
+                            <div class="matching-column">
+                                <div class="match-item" data-id="pl_sys" onclick="handleMatchClick(this, 't13_b3', 'pl_sys', 'term')">Правова система</div>
+                                <div class="match-item" data-id="sys_law" onclick="handleMatchClick(this, 't13_b3', 'sys_law', 'term')">Система права</div>
+                                <div class="match-item" data-id="sys_leg" onclick="handleMatchClick(this, 't13_b3', 'sys_leg', 'term')">Система законодавства</div>
+                            </div>
+                            <div class="matching-column">
+                                <div class="match-item" data-id="sys_law" onclick="handleMatchClick(this, 't13_b3', 'sys_law', 'def')">Внутрішня будова самого права — галузі права, підгалузі, інститути права та окремі правові норми (правила поведінки).</div>
+                                <div class="match-item" data-id="sys_leg" onclick="handleMatchClick(this, 't13_b3', 'sys_leg', 'def')">Сукупність зовнішніх форм вираження права — нормативно-правових актів (законів, кодексів, указів, постанов).</div>
+                                <div class="match-item" data-id="pl_sys" onclick="handleMatchClick(this, 't13_b3', 'pl_sys', 'def')">Сукупність усіх правових явищ країни: юридичних установ, правової культури, судової практики, адвокатури та правової науки.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="task-btn" style="margin-top: 15px;" onclick="checkTask('t1-5-match')">Перевірити відповідність</button>
+                    <div class="feedback-inline" id="fb-t1-5-match"></div>
+
+                    <!-- ТАБЛИЦЯ ПРИКЛАДІВ ДО 1.5 -->
+                    <div style="margin-top: 30px;">
+                        <p><b>Перевірка розуміння на прикладах:</b> <em>Позначте прапорцями правильні категорії для наведених прикладів:</em></p>
+                        <table class="fixed-table" style="margin-top: 10px;">
+                            <tr>
+                                <th style="width: 33%;">Правова система</th>
+                                <th style="width: 33%;">Система права</th>
+                                <th style="width: 34%;">Система законодавства</th>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top;">
+                                    <label class="test-option" style="background: white;"><input type="checkbox" class="ex-chk-t15" data-col="pl_sys" data-correct="true" onchange="saveState()"> Звичаєве козацьке право</label>
+                                    <label class="test-option" style="background: white;"><input type="checkbox" class="ex-chk-t15" data-col="pl_sys" data-correct="false" data-explanation="Це нормативно-правовий акт (система законодавства)." onchange="saveState()"> Конституція України</label>
+                                    <label class="test-option" style="background: white;"><input type="checkbox" class="ex-chk-t15" data-col="pl_sys" data-correct="true" onchange="saveState()"> Спілка адвокатів України</label>
+                                    <label class="test-option" style="background: white;"><input type="checkbox" class="ex-chk-t15" data-col="pl_sys" data-correct="false" data-explanation="Це галузь права (система права)." onchange="saveState()"> Кримінальне право</label>
+                                </td>
+                                <td style="vertical-align: top;">
+                                    <label class="test-option" style="background: white;"><input type="checkbox" class="ex-chk-t15" data-col="sys_law" data-correct="true" onchange="saveState()"> Публічне право</label>
+                                    <label class="test-option" style="background: white;"><input type="checkbox" class="ex-chk-t15" data-col="sys_law" data-correct="false" data-explanation="Це елемент правової системи (діяльність та досвід)." onchange="saveState()"> Судова практика Верховного Суду</label>
+                                    <label class="test-option" style="background: white;"><input type="checkbox" class="ex-chk-t15" data-col="sys_law" data-correct="true" onchange="saveState()"> Інститут громадянства</label>
+                                    <label class="test-option" style="background: white;"><input type="checkbox" class="ex-chk-t15" data-col="sys_law" data-correct="false" data-explanation="Це кодифікований закон (система законодавства)." onchange="saveState()"> Кримінальний кодекс України</label>
+                                </td>
+                                <td style="vertical-align: top;">
+                                    <label class="test-option" style="background: white;"><input type="checkbox" class="ex-chk-t15" data-col="sys_leg" data-correct="true" onchange="saveState()"> Конституція України</label>
+                                    <label class="test-option" style="background: white;"><input type="checkbox" class="ex-chk-t15" data-col="sys_leg" data-correct="false" data-explanation="Це первинний елемент права (система права)." onchange="saveState()"> Правова норма як правило поведінки</label>
+                                    <label class="test-option" style="background: white;"><input type="checkbox" class="ex-chk-t15" data-col="sys_leg" data-correct="true" onchange="saveState()"> Закон України "Про освіту"</label>
+                                    <label class="test-option" style="background: white;"><input type="checkbox" class="ex-chk-t15" data-col="sys_leg" data-correct="false" data-explanation="Це інститут суспільства (правова система)." onchange="saveState()"> Спілка адвокатів України</label>
+                                </td>
+                            </tr>
+                        </table>
+                        <button class="task-btn" style="margin-top: 10px;" onclick="checkTask('t1-5-ex')">Перевірити приклади</button>
+                        <div class="feedback-inline" id="fb-t1-5-ex"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Стрілки переходу -->
+            <div class="subpage-arrows">
+                <button class="task-btn" onclick="switchPage(1)">← Назад</button>
+                <button class="task-btn" onclick="switchPage(3)">Далі (Тема 2) →</button>
+            </div>
+        </section>
+
+        <!-- СТОРІНКА 3: Блок 2 (Частина 1: завдання 2.1) -->
+        <section id="page-3" class="page-section">
+            <h2>Тема 2. Сутність і функції держави (Частина 1)</h2>
+            
+            <p style="margin-top: 15px; text-align: center;"><em>Натисніть на картку, щоб перегорнути її та побачити наукове визначення:</em></p>
+            <div class="flashcard-container" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">
+                        <span class="term-title">ФУНКЦІЇ ДЕРЖАВИ</span>
+                    </div>
+                    <div class="flashcard-back">
+                        <div style="font-weight: bold; color: var(--turquoise); margin-bottom: 4px; font-size: 0.85rem; text-transform: uppercase;">ФУНКЦІЇ ДЕРЖАВИ</div>
+                        <p style="margin: 0;">(від латин. functio — виконання, вчинення) — основні <span class="highlight">напрямки</span> діяльності держави, що виражають її <span class="highlight">сутність і призначення</span>.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="task-box">
+                <!-- Липкий заголовок та кнопка перевірки -->
+                <div class="sticky-task-wrapper">
+                    <div class="sticky-task-header">
+                        <h3>Завдання 2.1. Сортування функцій</h3>
+                        <p style="margin-bottom: 8px;"><em>Розподіліть приклади діяльності за територіальною спрямованістю та сферою суспільного життя:</em></p>
+                        <button class="task-btn" onclick="checkTask('t2-1')">Перевірити</button>
+                        <span class="feedback-inline" id="fb-t2-1" style="display:inline-block; margin-left: 15px;"></span>
+                    </div>
+                </div>
+
+                <!-- ЕДИНА ТАБЛИЦЯ З ФІКСОВАНОЮ ШАПКОЮ ТА СКРОЛОМ ТІЛА -->
+                <div class="table-scroll-container">
+                    <table class="fixed-table-3">
+                        <thead>
+                            <tr>
+                                <th>Приклад діяльності держави</th>
+                                <th>Територіальна спрямованість</th>
+                                <th>Сфера суспільного життя</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1. Виплата пенсій та соціальних допомог</td>
+                                <td>
+                                    <select class="t2-1-dir" data-correct="internal" onchange="saveState()">
+                                        <option value="">--</option>
+                                        <option value="internal">Внутрішня</option>
+                                        <option value="external">Зовнішня</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="t2-1-sphere" data-correct="social" onchange="saveState()">
+                                        <option value="">--</option>
+                                        <option value="social">Соціальна</option>
+                                        <option value="humanitarian">Гуманітарна</option>
+                                        <option value="economic">Економічна</option>
+                                        <option value="cultural">Культурна</option>
+                                        <option value="political">Політична</option>
+                                        <option value="ecological">Екологічна</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2. Участь у міжнародних договорах про захист прав людини</td>
+                                <td>
+                                    <select class="t2-1-dir" data-correct="external" onchange="saveState()">
+                                        <option value="">--</option>
+                                        <option value="internal">Внутрішня</option>
+                                        <option value="external">Зовнішня</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="t2-1-sphere" data-correct="humanitarian" onchange="saveState()">
+                                        <option value="">--</option>
+                                        <option value="social">Соціальна</option>
+                                        <option value="humanitarian">Гуманітарна</option>
+                                        <option value="economic">Економічна</option>
+                                        <option value="cultural">Культурна</option>
+                                        <option value="political">Політична</option>
+                                        <option value="ecological">Екологічна</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3. Захист державної та приватної власності</td>
+                                <td>
+                                    <select class="t2-1-dir" data-correct="internal" onchange="saveState()">
+                                        <option value="">--</option>
+                                        <option value="internal">Внутрішня</option>
+                                        <option value="external">Зовнішня</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="t2-1-sphere" data-correct="economic" onchange="saveState()">
+                                        <option value="">--</option>
+                                        <option value="social">Соціальна</option>
+                                        <option value="humanitarian">Гуманітарна</option>
+                                        <option value="economic">Економічна</option>
+                                        <option value="cultural">Культурна</option>
+                                        <option value="political">Політична</option>
+                                        <option value="ecological">Екологічна</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>4. Організація міждержавного культурного обміну</td>
+                                <td>
+                                    <select class="t2-1-dir" data-correct="external" onchange="saveState()">
+                                        <option value="">--</option>
+                                        <option value="internal">Внутрішня</option>
+                                        <option value="external">Зовнішня</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="t2-1-sphere" data-correct="cultural" onchange="saveState()">
+                                        <option value="">--</option>
+                                        <option value="social">Соціальна</option>
+                                        <option value="humanitarian">Гуманітарна</option>
+                                        <option value="economic">Економічна</option>
+                                        <option value="cultural">Культурна</option>
+                                        <option value="political">Політична</option>
+                                        <option value="ecological">Екологічна</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>5. Охорона конституційного ладу та правопорядку</td>
+                                <td>
+                                    <select class="t2-1-dir" data-correct="internal" onchange="saveState()">
+                                        <option value="">--</option>
+                                        <option value="internal">Внутрішня</option>
+                                        <option value="external">Зовнішня</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="t2-1-sphere" data-correct="political" onchange="saveState()">
+                                        <option value="">--</option>
+                                        <option value="social">Соціальна</option>
+                                        <option value="humanitarian">Гуманітарна</option>
+                                        <option value="economic">Економічна</option>
+                                        <option value="cultural">Культурна</option>
+                                        <option value="political">Політична</option>
+                                        <option value="ecological">Екологічна</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>6. Створення умов для розвитку виробництва на державних підприємствах</td>
+                                <td>
+                                    <select class="t2-1-dir" data-correct="internal" onchange="saveState()">
+                                        <option value="">--</option>
+                                        <option value="internal">Внутрішня</option>
+                                        <option value="external">Зовнішня</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="t2-1-sphere" data-correct="economic" onchange="saveState()">
+                                        <option value="">--</option>
+                                        <option value="social">Соціальна</option>
+                                        <option value="humanitarian">Гуманітарна</option>
+                                        <option value="economic">Економічна</option>
+                                        <option value="cultural">Культурна</option>
+                                        <option value="political">Політична</option>
+                                        <option value="ecological">Екологічна</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>7. Участь у міжнародному розподілі та інтеграції виробництва і праці</td>
+                                <td>
+                                    <select class="t2-1-dir" data-correct="external" onchange="saveState()">
+                                        <option value="">--</option>
+                                        <option value="internal">Внутрішня</option>
+                                        <option value="external">Зовнішня</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="t2-1-sphere" data-correct="economic" onchange="saveState()">
+                                        <option value="">--</option>
+                                        <option value="social">Соціальна</option>
+                                        <option value="humanitarian">Гуманітарна</option>
+                                        <option value="economic">Економічна</option>
+                                        <option value="cultural">Культурна</option>
+                                        <option value="political">Політична</option>
+                                        <option value="ecological">Екологічна</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>8. Гарантування екологічної безпеки та підтримка екологічної рівноваги</td>
+                                <td>
+                                    <select class="t2-1-dir" data-correct="internal" onchange="saveState()">
+                                        <option value="">--</option>
+                                        <option value="internal">Внутрішня</option>
+                                        <option value="external">Зовнішня</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="t2-1-sphere" data-correct="ecological" onchange="saveState()">
+                                        <option value="">--</option>
+                                        <option value="social">Соціальна</option>
+                                        <option value="humanitarian">Гуманітарна</option>
+                                        <option value="economic">Економічна</option>
+                                        <option value="cultural">Культурна</option>
+                                        <option value="political">Політична</option>
+                                        <option value="ecological">Екологічна</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>9. Допомога населенню іншої країни після стихійного лиха</td>
+                                <td>
+                                    <select class="t2-1-dir" data-correct="external" onchange="saveState()">
+                                        <option value="">--</option>
+                                        <option value="internal">Внутрішня</option>
+                                        <option value="external">Зовнішня</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="t2-1-sphere" data-correct="humanitarian" onchange="saveState()">
+                                        <option value="">--</option>
+                                        <option value="social">Соціальна</option>
+                                        <option value="humanitarian">Гуманітарна</option>
+                                        <option value="economic">Економічна</option>
+                                        <option value="cultural">Культурна</option>
+                                        <option value="political">Політична</option>
+                                        <option value="ecological">Екологічна</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>10. Забезпечення умов для діяльності політичних партій та громадських об'єднань</td>
+                                <td>
+                                    <select class="t2-1-dir" data-correct="internal" onchange="saveState()">
+                                        <option value="">--</option>
+                                        <option value="internal">Внутрішня</option>
+                                        <option value="external">Зовнішня</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="t2-1-sphere" data-correct="political" onchange="saveState()">
+                                        <option value="">--</option>
+                                        <option value="social">Соціальна</option>
+                                        <option value="humanitarian">Гуманітарна</option>
+                                        <option value="economic">Економічна</option>
+                                        <option value="cultural">Культурна</option>
+                                        <option value="political">Політична</option>
+                                        <option value="ecological">Екологічна</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>11. Участь у міжнародних програмах охорони довкілля</td>
+                                <td>
+                                    <select class="t2-1-dir" data-correct="external" onchange="saveState()">
+                                        <option value="">--</option>
+                                        <option value="internal">Внутрішня</option>
+                                        <option value="external">Зовнішня</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="t2-1-sphere" data-correct="ecological" onchange="saveState()">
+                                        <option value="">--</option>
+                                        <option value="social">Соціальна</option>
+                                        <option value="humanitarian">Гуманітарна</option>
+                                        <option value="economic">Економічна</option>
+                                        <option value="cultural">Культурна</option>
+                                        <option value="political">Політична</option>
+                                        <option value="ecological">Екологічна</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>12. Забезпечення доступу громадян до освіти</td>
+                                <td>
+                                    <select class="t2-1-dir" data-correct="internal" onchange="saveState()">
+                                        <option value="">--</option>
+                                        <option value="internal">Внутрішня</option>
+                                        <option value="external">Зовнішня</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="t2-1-sphere" data-correct="humanitarian" onchange="saveState()">
+                                        <option value="">--</option>
+                                        <option value="social">Соціальна</option>
+                                        <option value="humanitarian">Гуманітарна</option>
+                                        <option value="economic">Економічна</option>
+                                        <option value="cultural">Культурна</option>
+                                        <option value="political">Політична</option>
+                                        <option value="ecological">Екологічна</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Стрілки переходу -->
+            <div class="subpage-arrows">
+                <button class="task-btn" onclick="switchPage(2)">← Назад</button>
+                <button class="task-btn" onclick="switchPage(4)">Далі (Завдання 2.2) →</button>
+            </div>
+        </section>
+
+        <!-- СТОРІНКА 4: Блок 2 (Частина 2: завдання 2.2) -->
+        <section id="page-4" class="page-section">
+            <h2>Тема 2. Сутність і функції держави (Частина 2)</h2>
+
+            <div class="task-box">
+                <!-- Липкий заголовок та кнопка перевірки -->
+                <div class="sticky-task-wrapper">
+                    <div class="sticky-task-header">
+                        <h3>Завдання 2.2. Матриця методів та форм здійснення державних функцій</h3>
+                        <p style="margin-bottom: 8px;"><em>Визначте методи та форму здійснення для кожного заходу:</em></p>
+                        <button class="task-btn" onclick="checkTask('t2-2')">Перевірити</button>
+                        <span class="feedback-inline" id="fb-t2-2" style="display:inline-block; margin-left: 15px;"></span>
+                    </div>
+                </div>
+
+                <!-- ЄДИНА ТАБЛИЦЯ З ФІКСОВАНОЮ ШАПКОЮ ТА СКРОЛОМ ТІЛА -->
+                <div class="table-scroll-container">
+                    <table class="matrix-table">
+                        <thead>
+                            <tr>
+                                <th>Захід державної діяльності</th>
+                                <th>Метод Переконання</th>
+                                <th>Метод Примусу</th>
+                                <th>Метод Заохочення</th>
+                                <th>Форма здійснення</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Припинення поліцією правопорушення та затримання правопорушника</td>
+                                <td><input type="checkbox" class="m-cell" data-row="0" data-type="pers" data-val="false" onchange="saveState()"></td>
+                                <td><input type="checkbox" class="m-cell" data-row="0" data-type="comp" data-val="true" onchange="saveState()"></td>
+                                <td><input type="checkbox" class="m-cell" data-row="0" data-type="enc" data-val="false" onchange="saveState()"></td>
+                                <td>
+                                    <select class="m-form-cell" data-row="0" data-correct="enforcement" onchange="saveState()">
+                                        <option value="">--</option>
+                                        <option value="enforcement">Правоохоронна</option>
+                                        <option value="lawmaking">Правотворча (законодавча)</option>
+                                        <option value="management">Управлінська</option>
+                                        <option value="application">Правозастосовна</option>
+                                        <option value="reg">Організаційно-регламентуюча</option>
+                                        <option value="econ">Організаційно-економічна</option>
+                                        <option value="control">Організаційно-контрольна</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Вручення державної нагороди працівникові за сумлінне виконання службових обов'язків</td>
+                                <td><input type="checkbox" class="m-cell" data-row="1" data-type="pers" data-val="false" onchange="saveState()"></td>
+                                <td><input type="checkbox" class="m-cell" data-row="1" data-type="comp" data-val="false" onchange="saveState()"></td>
+                                <td><input type="checkbox" class="m-cell" data-row="1" data-type="enc" data-val="true" onchange="saveState()"></td>
+                                <td>
+                                    <select class="m-form-cell" data-row="1" data-correct="econ" onchange="saveState()">
+                                        <option value="">--</option>
+                                        <option value="enforcement">Правоохоронна</option>
+                                        <option value="lawmaking">Правотворча (законодавча)</option>
+                                        <option value="management">Управлінська</option>
+                                        <option value="application">Правозастосовна</option>
+                                        <option value="reg">Організаційно-регламентуюча</option>
+                                        <option value="econ">Організаційно-економічна</option>
+                                        <option value="control">Організаційно-контрольна</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Проведення державним органом роз'яснювальної кампанії щодо правил пожежної безпеки</td>
+                                <td><input type="checkbox" class="m-cell" data-row="2" data-type="pers" data-val="true" onchange="saveState()"></td>
+                                <td><input type="checkbox" class="m-cell" data-row="2" data-type="comp" data-val="false" onchange="saveState()"></td>
+                                <td><input type="checkbox" class="m-cell" data-row="2" data-type="enc" data-val="false" onchange="saveState()"></td>
+                                <td>
+                                    <select class="m-form-cell" data-row="2" data-correct="management" onchange="saveState()">
+                                        <option value="">--</option>
+                                        <option value="enforcement">Правоохоронна</option>
+                                        <option value="lawmaking">Правотворча (законодавча)</option>
+                                        <option value="management">Управлінська</option>
+                                        <option value="application">Правозастосовна</option>
+                                        <option value="reg">Організаційно-регламентуюча</option>
+                                        <option value="econ">Організаційно-економічна</option>
+                                        <option value="control">Організаційно-контрольна</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Надання громадянину передбаченої законом пільги за наявності встановлених законом підстав</td>
+                                <td><input type="checkbox" class="m-cell" data-row="3" data-type="pers" data-val="false" onchange="saveState()"></td>
+                                <td><input type="checkbox" class="m-cell" data-row="3" data-type="comp" data-val="false" onchange="saveState()"></td>
+                                <td><input type="checkbox" class="m-cell" data-row="3" data-type="enc" data-val="true" onchange="saveState()"></td>
+                                <td>
+                                    <select class="m-form-cell" data-row="3" data-correct="application" onchange="saveState()">
+                                        <option value="">--</option>
+                                        <option value="enforcement">Правоохоронна</option>
+                                        <option value="lawmaking">Правотворча (законодавча)</option>
+                                        <option value="management">Управлінська</option>
+                                        <option value="application">Правозастосовна</option>
+                                        <option value="reg">Організаційно-регламентуюча</option>
+                                        <option value="econ">Організаційно-економічна</option>
+                                        <option value="control">Організаційно-контрольна</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Прийняття Верховною Радою закону про державний бюджет</td>
+                                <td><input type="checkbox" class="m-cell" data-row="4" data-type="pers" data-val="false" onchange="saveState()"></td>
+                                <td><input type="checkbox" class="m-cell" data-row="4" data-type="comp" data-val="true" onchange="saveState()"></td>
+                                <td><input type="checkbox" class="m-cell" data-row="4" data-type="enc" data-val="false" onchange="saveState()"></td>
+                                <td>
+                                    <select class="m-form-cell" data-row="4" data-correct="lawmaking" onchange="saveState()">
+                                        <option value="">--</option>
+                                        <option value="enforcement">Правоохоронна</option>
+                                        <option value="lawmaking">Правотворча (законодавча)</option>
+                                        <option value="management">Управлінська</option>
+                                        <option value="application">Правозастосовна</option>
+                                        <option value="reg">Організаційно-регламентуюча</option>
+                                        <option value="econ">Організаційно-економічна</option>
+                                        <option value="control">Організаційно-контрольна</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Перевірка державним органом виконання підпорядкованою установою покладених на неї завдань</td>
+                                <td><input type="checkbox" class="m-cell" data-row="5" data-type="pers" data-val="true" onchange="saveState()"></td>
+                                <td><input type="checkbox" class="m-cell" data-row="5" data-type="comp" data-val="false" onchange="saveState()"></td>
+                                <td><input type="checkbox" class="m-cell" data-row="5" data-type="enc" data-val="false" onchange="saveState()"></td>
+                                <td>
+                                    <select class="m-form-cell" data-row="5" data-correct="control" onchange="saveState()">
+                                        <option value="">--</option>
+                                        <option value="enforcement">Правоохоронна</option>
+                                        <option value="lawmaking">Правотворча (законодавча)</option>
+                                        <option value="management">Управлінська</option>
+                                        <option value="application">Правозастосовна</option>
+                                        <option value="reg">Організаційно-регламентуюча</option>
+                                        <option value="econ">Організаційно-економічна</option>
+                                        <option value="control">Організаційно-контрольна</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Встановлення державним органом обов'язкових правил роботи для підпорядкованих установ</td>
+                                <td><input type="checkbox" class="m-cell" data-row="6" data-type="pers" data-val="false" onchange="saveState()"></td>
+                                <td><input type="checkbox" class="m-cell" data-row="6" data-type="comp" data-val="true" onchange="saveState()"></td>
+                                <td><input type="checkbox" class="m-cell" data-row="6" data-type="enc" data-val="false" onchange="saveState()"></td>
+                                <td>
+                                    <select class="m-form-cell" data-row="6" data-correct="management" onchange="saveState()">
+                                        <option value="">--</option>
+                                        <option value="enforcement">Правоохоронна</option>
+                                        <option value="lawmaking">Правотворча (законодавча)</option>
+                                        <option value="management">Управлінська</option>
+                                        <option value="application">Правозастосовна</option>
+                                        <option value="reg">Організаційно-регламентуюча</option>
+                                        <option value="econ">Організаційно-економічна</option>
+                                        <option value="control">Організаційно-контрольна</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Проведення поліцією профілактичної бесіди з підлітками для запобігання правопорушенням</td>
+                                <td><input type="checkbox" class="m-cell" data-row="7" data-type="pers" data-val="true" onchange="saveState()"></td>
+                                <td><input type="checkbox" class="m-cell" data-row="7" data-type="comp" data-val="false" onchange="saveState()"></td>
+                                <td><input type="checkbox" class="m-cell" data-row="7" data-type="enc" data-val="false" onchange="saveState()"></td>
+                                <td>
+                                    <select class="m-form-cell" data-row="7" data-correct="enforcement" onchange="saveState()">
+                                        <option value="">--</option>
+                                        <option value="enforcement">Правоохоронна</option>
+                                        <option value="lawmaking">Правотворча (законодавча)</option>
+                                        <option value="management">Управлінська</option>
+                                        <option value="application">Правозастосовна</option>
+                                        <option value="reg">Організаційно-регламентуюча</option>
+                                        <option value="econ">Організаційно-економічна</option>
+                                        <option value="control">Організаційно-контрольна</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Розподіл посадових обов'язків між працівниками державної установи</td>
+                                <td><input type="checkbox" class="m-cell" data-row="8" data-type="pers" data-val="false" onchange="saveState()"></td>
+                                <td><input type="checkbox" class="m-cell" data-row="8" data-type="comp" data-val="true" onchange="saveState()"></td>
+                                <td><input type="checkbox" class="m-cell" data-row="8" data-type="enc" data-val="false" onchange="saveState()"></td>
+                                <td>
+                                    <select class="m-form-cell" data-row="8" data-correct="reg" onchange="saveState()">
+                                        <option value="">--</option>
+                                        <option value="enforcement">Правоохоронна</option>
+                                        <option value="lawmaking">Правотворча (законодавча)</option>
+                                        <option value="management">Управлінська</option>
+                                        <option value="application">Правозастосовна</option>
+                                        <option value="reg">Організаційно-регламентуюча</option>
+                                        <option value="econ">Організаційно-економічна</option>
+                                        <option value="control">Організаційно-контрольна</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Внесення змін до закону, який встановлює відповідальність за порушення правил академічної доброчесності</td>
+                                <td><input type="checkbox" class="m-cell" data-row="9" data-type="pers" data-val="false" onchange="saveState()"></td>
+                                <td><input type="checkbox" class="m-cell" data-row="9" data-type="comp" data-val="true" onchange="saveState()"></td>
+                                <td><input type="checkbox" class="m-cell" data-row="9" data-type="enc" data-val="false" onchange="saveState()"></td>
+                                <td>
+                                    <select class="m-form-cell" data-row="9" data-correct="lawmaking" onchange="saveState()">
+                                        <option value="">--</option>
+                                        <option value="enforcement">Правоохоронна</option>
+                                        <option value="lawmaking">Правотворча (законодавча)</option>
+                                        <option value="management">Управлінська</option>
+                                        <option value="application">Правозастосовна</option>
+                                        <option value="reg">Організаційно-регламентуюча</option>
+                                        <option value="econ">Організаційно-економічна</option>
+                                        <option value="control">Організаційно-контрольна</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Встановлення для державної установи обов'язкових вимог щодо використання бюджетних коштів на придбання обладнання</td>
+                                <td><input type="checkbox" class="m-cell" data-row="10" data-type="pers" data-val="false" onchange="saveState()"></td>
+                                <td><input type="checkbox" class="m-cell" data-row="10" data-type="comp" data-val="true" onchange="saveState()"></td>
+                                <td><input type="checkbox" class="m-cell" data-row="10" data-type="enc" data-val="false" onchange="saveState()"></td>
+                                <td>
+                                    <select class="m-form-cell" data-row="10" data-correct="econ" onchange="saveState()">
+                                        <option value="">--</option>
+                                        <option value="enforcement">Правоохоронна</option>
+                                        <option value="lawmaking">Правотворча (законодавча)</option>
+                                        <option value="management">Управлінська</option>
+                                        <option value="application">Правозастосовна</option>
+                                        <option value="reg">Організаційно-регламентуюча</option>
+                                        <option value="econ">Організаційно-економічна</option>
+                                        <option value="control">Організаційно-контрольна</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Ухвалення судового рішення про накладення штрафу на особу за адміністративне правопорушення</td>
+                                <td><input type="checkbox" class="m-cell" data-row="11" data-type="pers" data-val="false" onchange="saveState()"></td>
+                                <td><input type="checkbox" class="m-cell" data-row="11" data-type="comp" data-val="true" onchange="saveState()"></td>
+                                <td><input type="checkbox" class="m-cell" data-row="11" data-type="enc" data-val="false" onchange="saveState()"></td>
+                                <td>
+                                    <select class="m-form-cell" data-row="11" data-correct="application" onchange="saveState()">
+                                        <option value="">--</option>
+                                        <option value="enforcement">Правоохоронна</option>
+                                        <option value="lawmaking">Правотворча (законодавча)</option>
+                                        <option value="management">Управлінська</option>
+                                        <option value="application">Правозастосовна</option>
+                                        <option value="reg">Організаційно-регламентуюча</option>
+                                        <option value="econ">Організаційно-економічна</option>
+                                        <option value="control">Організаційно-контрольна</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Стрілки переходу -->
+            <div class="subpage-arrows">
+                <button class="task-btn" onclick="switchPage(3)">← Назад</button>
+                <button class="task-btn" onclick="switchPage(5)">Далі (Тема 3) →</button>
+            </div>
+        </section>
+
+        <!-- СТОРІНКА 5: Блок 3 -->
+        <section id="page-5" class="page-section">
+            <h2>Тема 3. Суверенітет та його види</h2>
+
+            <div class="task-box">
+                <div class="task-box-inner">
+                    <h3>Завдання 3.1. Встановлення відповідності видів суверенітету</h3>
+                    <p><em>Натисніть по черзі на термін та відповідне визначення:</em></p>
+                </div>
+                <div class="task-box-inner" style="padding-top: 0;">
+                    <div class="matching-wrapper">
+                        <svg class="match-lines" id="svg-t31"></svg>
+                        <div class="matching-container" id="match-container-3">
+                            <div class="matching-column">
+                                <div class="match-item" data-id="a" onclick="handleMatchClick(this, 't31', 'a', 'term')">Державний суверенітет</div>
+                                <div class="match-item" data-id="b" onclick="handleMatchClick(this, 't31', 'b', 'term')">Народний суверенітет</div>
+                                <div class="match-item" data-id="c" onclick="handleMatchClick(this, 't31', 'c', 'term')">Національний суверенітет</div>
+                            </div>
+                            <div class="matching-column">
+                                <div class="match-item" data-id="b" onclick="handleMatchClick(this, 't31', 'b', 'def')">Верховенство всіх громадян як джерела і носія влади в країні</div>
+                                <div class="match-item" data-id="c" onclick="handleMatchClick(this, 't31', 'c', 'def')">Сукупність повновладдя нації та її прав на самовизначення</div>
+                                <div class="match-item" data-id="a" onclick="handleMatchClick(this, 't31', 'a', 'def')">Верховенство влади всередині країни та її незалежність у міжнародних відносинах</div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="task-btn" onclick="checkTask('t3-1')">Перевірити</button>
+                    <div class="feedback-inline" id="fb-t3-1"></div>
+                </div>
+            </div>
+
+            <div class="task-box">
+                <div class="task-box-inner">
+                    <h3>Завдання 3.2. Співвідношення видів суверенітету</h3>
+                    <p><em>Оберіть правильну графічну схему співвідношення цих понять серед 4 запропонованих варіантів:</em></p>
+                    
+                    <div class="schemas-grid" id="grid-s3">
+                        <div class="schema-card-slot" data-val="1" onclick="selectSchema(this, 's3', '1')">
+                            <img src="sovereignty-scheme-1.jpg" alt="Схема 1">
+                            <div class="schema-label">Схема 1</div>
+                        </div>
+                        <div class="schema-card-slot" data-val="2" onclick="selectSchema(this, 's3', '2')">
+                            <img src="sovereignty-scheme-2.jpg" alt="Схема 2">
+                            <div class="schema-label">Схема 2</div>
+                        </div>
+                        <div class="schema-card-slot" data-val="3" onclick="selectSchema(this, 's3', '3')">
+                            <img src="sovereignty-scheme-3.jpg" alt="Схема 3">
+                            <div class="schema-label">Схема 3</div>
+                        </div>
+                        <div class="schema-card-slot" data-val="4" data-correct="true" onclick="selectSchema(this, 's3', '4')">
+                            <img src="sovereignty-scheme-4.jpg" alt="Схема 4">
+                            <div class="schema-label">Схема 4</div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="t3-schema-val" value="">
+
+                    <button class="task-btn" onclick="checkTask('t3-2')">Перевірити</button>
+                    <button class="task-btn" style="background: var(--header-bg);" onclick="toggleHint('hint-s3', 'fb-t3-2')">💡 Підказка</button>
+                    <div id="hint-s3" class="hint-box">
+                        <p><b>Правильна схема та пояснення:</b></p>
+                        <div style="background: white; border: 1px solid var(--border-color); padding: 15px; margin: 10px 0; border-radius: 6px; text-align: center;">
+                            <img src="sovereignty-scheme-correct.jpg" alt="Правильна схема суверенітету" style="max-width: 100%; height: auto; border-radius: 4px;">
+                        </div>
+                        <p>• <i>Чому є перетин Народного та Національного суверенітету?</i> Зоною перетину обох понять є єдина політична нація. Проте національний суверенітет включає також право бездержавної нації на самовизначення. А народний суверенітет — це передусім влада народу як джерела влади.</p>
+                        <p>• <i>Чому місце Державного суверенітету всередині перетину?</i> Державний суверенітет пов’язаний із народним і національним суверенітетом: держава є формою політичної організації, через яку реалізується політична воля народу та нації.</p>
+                    </div>
+                    <div class="feedback-inline" id="fb-t3-2"></div>
+                </div>
+            </div>
+
+            <div class="task-box">
+                <div class="task-box-inner">
+                    <h3>Завдання 3.3. Тестові завдання</h3>
+                    <p><em>Оберіть одну правильну відповідь для кожного завдання:</em></p>
+                    <div class="grid-2x2">
+                        <div class="test-card" id="t33-q0" style="margin-bottom:0;">
+                            <p><b>Держава самостійно визначає свою внутрішню політику, ухвалює закони, встановлює податки та не підпорядковується владі інших держав. Яке поняття найточніше характеризує цю ситуацію?</b></p>
+                            <label class="test-option"><input type="radio" name="t33_0" value="0" onclick="checkTask33(0, 0)"> Народний суверенітет</label>
+                            <label class="test-option"><input type="radio" name="t33_0" value="1" onclick="checkTask33(0, 1)"> Національний суверенітет</label>
+                            <label class="test-option"><input type="radio" name="t33_0" value="2" data-correct="true" onclick="checkTask33(0, 2)"> Державний суверенітет</label>
+                            <div class="explanation-box"></div>
+                        </div>
+                        <div class="test-card" id="t33-q1" style="margin-bottom:0;">
+                            <p><b>У державі джерелом влади визнається народ, який реалізує її безпосередньо та через обрані ним органи державної влади. Про який вид суверенітету йдеться?</b></p>
+                            <label class="test-option"><input type="radio" name="t33_1" value="0" data-correct="true" onclick="checkTask33(1, 0)"> Народний суверенітет</label>
+                            <label class="test-option"><input type="radio" name="t33_1" value="1" onclick="checkTask33(1, 1)"> Державний суверенітет</label>
+                            <label class="test-option"><input type="radio" name="t33_1" value="2" onclick="checkTask33(1, 2)"> Національний суверенітет</label>
+                            <div class="explanation-box"></div>
+                        </div>
+                        <div class="test-card" id="t33-q2" style="margin-bottom:0;">
+                            <p><b>Народ, який має спільну історію та культуру, прагне самостійно визначати свій політичний статус, зберігати власну мову й культурну самобутність. Яке поняття найточніше відображає ці прагнення?</b></p>
+                            <label class="test-option"><input type="radio" name="t33_2" value="0" onclick="checkTask33(2, 0)"> Державний суверенітет</label>
+                            <label class="test-option"><input type="radio" name="t33_2" value="1" onclick="checkTask33(2, 1)"> Народний суверенітет</label>
+                            <label class="test-option"><input type="radio" name="t33_2" value="2" data-correct="true" onclick="checkTask33(2, 2)"> Національний суверенітет</label>
+                            <div class="explanation-box"></div>
+                        </div>
+                        <div class="test-card" id="t33-q3" style="margin-bottom:0;">
+                            <p><b>Визначте, який вид суверенітету характеризує кожне положення:<br>а. Громадяни через вибори формують органи влади<br>б. Держава самостійно визначає свою зовнішню політику<br>в. Нація відстоює право на збереження своєї мови та культурної самобутності.</b></p>
+                            <label class="test-option"><input type="radio" name="t33_3" value="0" onclick="checkTask33(3, 0)"> А — державний; Б — національний; В — народний</label>
+                            <label class="test-option"><input type="radio" name="t33_3" value="1" data-correct="true" onclick="checkTask33(3, 1)"> А — народний; Б — державний; В — національний</label>
+                            <label class="test-option"><input type="radio" name="t33_3" value="2" onclick="checkTask33(3, 2)"> А — національний; Б — народний; В — державний</label>
+                            <div class="explanation-box"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subpage-arrows">
+                <button class="task-btn" onclick="switchPage(4)">← Назад</button>
+                <button class="task-btn" onclick="switchPage(6)">Далі (Тема 4) →</button>
+            </div>
+        </section>
+
+        <!-- СТОРІНКА 6: Блок 4 -->
+        <section id="page-6" class="page-section">
+            <h2>Тема 4. Правова держава та громадянське суспільство</h2>
+
+            <div class="task-box">
+                <div class="task-box-inner">
+                    <h3>Завдання 4.1. Міркування</h3>
+                    <p><em>Чи можна поставити знак рівності між демократичною та правовою державою?</em></p>
+                    <div class="yn-group">
+                        <div class="yn-box" onclick="selectYN(this, 'yes')">Так</div>
+                        <div class="yn-box" onclick="selectYN(this, 'no')" data-correct="true">Ні</div>
+                    </div>
+                    <input type="hidden" id="t4-yn-val" value="">
+                    <button class="task-btn" onclick="checkTask('t4-1')">Перевірити</button>
+                    <div class="feedback-inline" id="fb-t4-1"></div>
+                    <div id="t4-1-explanation" class="explanation-box"></div>
+                </div>
+            </div>
+
+            <div class="task-box">
+                <div class="task-box-inner">
+                    <h3>Завдання 4.2. Вибір ознак правової держави</h3>
+                    <p><em>Які з наведених ознак характеризують правову державу? Позначте всі правильні варіанти:</em></p>
+                    <label class="test-option"><input type="checkbox" class="t4-feat" data-correct="true" onchange="saveState()"> 1. Верховенство права та закону в усіх сферах суспільного життя</label>
+                    <label class="test-option"><input type="checkbox" class="t4-feat" data-correct="false" data-explanation="Це ознака громадянського суспільства, а не безпосередня ознака правової держави." onchange="saveState()"> 2. Самоврядування громадян та добровільних громадських об'єднань</label>
+                    <label class="test-option"><input type="checkbox" class="t4-feat" data-correct="true" onchange="saveState()"> 3. Поділ державної влади на законодавчу, виконавчу та судову</label>
+                    <label class="test-option"><input type="checkbox" class="t4-feat" data-correct="false" data-explanation="Це характерна риса громадянського суспільства, яке передбачає різноманітність політичних сил та поглядів." onchange="saveState()"> 4. Плюралізм політичних поглядів і багатопартійність</label>
+                    <label class="test-option"><input type="checkbox" class="t4-feat" data-correct="true" onchange="saveState()"> 5. Гарантування прав і свобод людини та рівність громадян перед законом</label>
+                    <label class="test-option"><input type="checkbox" class="t4-feat" data-correct="false" data-explanation="У наведеному переліку це визначено як рису громадянського суспільства." onchange="saveState()"> 6. Контроль суспільства за діяльністю державних органів</label>
+                    <label class="test-option"><input type="checkbox" class="t4-feat" data-correct="true" onchange="saveState()"> 7. Взаємна відповідальність держави та особистості</label>
+                    <label class="test-option"><input type="checkbox" class="t4-feat" data-correct="false" data-explanation="Це риса громадянського суспільства, а не безпосередня ознака правової держави." onchange="saveState()"> 8. Різноманітність форм власності та ринкова економіка</label>
+                    <label class="test-option"><input type="checkbox" class="t4-feat" data-correct="true" onchange="saveState()"> 9. Провідна роль суду у вирішенні правових спорів і конфліктів</label>
+                    <label class="test-option"><input type="checkbox" class="t4-feat" data-correct="true" onchange="saveState()"> 10. Високий рівень правосвідомості та правової культури громадян</label>
+                    
+                    <button class="task-btn" onclick="checkTask('t4-2')">Перевірити</button>
+                    <div class="feedback-inline" id="fb-t4-2"></div>
+                </div>
+            </div>
+
+            <div class="task-box">
+                <div class="task-box-inner">
+                    <h3>Завдання 4.3. Правова держава та громадянське суспільство</h3>
+                    <p style="margin-top: 15px; text-align: center;"><em>Натисніть на картку, щоб перегорнути її та побачити наукове визначення:</em></p>
+                    <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin: 15px 0;">
+                        <!-- Картка: Правова держава (ліворуч) -->
+                        <div class="flashcard-container" style="margin: 0; max-width: 320px;" onclick="this.classList.toggle('flipped')">
+                            <div class="flashcard-inner">
+                                <div class="flashcard-front">
+                                    <span class="term-title">ПРАВОВА ДЕРЖАВА</span>
+                                </div>
+                                <div class="flashcard-back">
+                                    <div style="font-weight: bold; color: var(--turquoise); margin-bottom: 4px; font-size: 0.85rem; text-transform: uppercase;">Правова держава</div>
+                                    <p style="margin: 0;">Держава, у якій влада здійснюється на основі права, забезпечується <span class="highlight">верховенство закону</span>, гарантуються права і свободи людини та діє принцип взаємної відповідальності держави й громадян.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Картка: Громадянське суспільство (праворуч) -->
+                        <div class="flashcard-container" style="margin: 0; max-width: 320px;" onclick="this.classList.toggle('flipped')">
+                            <div class="flashcard-inner">
+                                <div class="flashcard-front">
+                                    <span class="term-title">ГРОМАДЯНСЬКЕ СУСПІЛЬСТВО</span>
+                                </div>
+                                <div class="flashcard-back">
+                                    <div style="font-weight: bold; color: var(--turquoise); margin-bottom: 4px; font-size: 0.85rem; text-transform: uppercase;">Громадянське суспільство</div>
+                                    <p style="margin: 0;">Сукупність вільних громадян і незалежних соціальних інститутів, які захищають свої права, інтереси та розв'язують спільні проблеми, розвиваються <span class="highlight">без втручання держави</span> та мають на неї визначальний вплив.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p style="margin-top: 15px;"><em>Оберіть правильну графічну схему співвідношення цих понять серед 4 запропонованих варіантів:</em></p>
+                    <div class="schemas-grid" id="grid-s4">
+                        <div class="schema-card-slot" data-val="1" onclick="selectSchema(this, 's4', '1')">
+                            <img src="civil-society-scheme-1.jpg" alt="Схема 1">
+                            <div class="schema-label">Схема 1</div>
+                        </div>
+                        <div class="schema-card-slot" data-val="2" data-correct="true" onclick="selectSchema(this, 's4', '2')">
+                            <img src="civil-society-scheme-2.jpg" alt="Схема 2">
+                            <div class="schema-label">Схема 2</div>
+                        </div>
+                        <div class="schema-card-slot" data-val="3" onclick="selectSchema(this, 's4', '3')">
+                            <img src="civil-society-scheme-3.jpg" alt="Схема 3">
+                            <div class="schema-label">Схема 3</div>
+                        </div>
+                        <div class="schema-card-slot" data-val="4" onclick="selectSchema(this, 's4', '4')">
+                            <img src="civil-society-scheme-4.jpg" alt="Схема 4">
+                            <div class="schema-label">Схема 4</div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="t4-schema-val" value="">
+
+                    <button class="task-btn" onclick="checkTask('t4-3')">Перевірити</button>
+                    <button class="task-btn" style="background: var(--header-bg);" onclick="toggleHint('hint-s4', 'fb-t4-3')">💡 Підказка</button>
+                    <div id="hint-s4" class="hint-box">
+                        <p><b>Правильна схема та пояснення:</b></p>
+                        <div style="background: white; border: 1px solid var(--border-color); padding: 15px; margin: 10px 0; border-radius: 6px; text-align: center;">
+                            <img src="civil-society-scheme-correct.jpg" alt="Правильна схема громадянського суспільства" style="max-width: 100%; height: auto; border-radius: 4px;">
+                        </div>
+                        <p><b>Правова держава і громадянське суспільство не можуть існувати одне без одного, але вони не тотожні.</b></p>
+                        <p>• <i>Чому є автономні зони?</i> Громадянське суспільство має сферу приватного життя, куди держава законом не втручається (сім'я, релігія, бізнес). Держава має виключні функції (правосуддя, оборона).</p>
+                        <p>• <i>Що в зоні перетину?</i> Громадський контроль за владою, вибори, петиції, волонтерство.</p>
+                    </div>
+                    <div class="feedback-inline" id="fb-t4-3"></div>
+                </div>
+            </div>
+
+            <div class="subpage-arrows">
+                <button class="task-btn" onclick="switchPage(5)">← Назад</button>
+                <button class="task-btn" onclick="switchPage(7)">Далі (Підсумковий тест) →</button>
+            </div>
+        </section>
+
+        <!-- СТОРІНКА 7: Підсумковий тест -->
+        <section id="page-7" class="page-section">
+            <h2>Тема 5. Підсумковий тестовий контроль (10 завдань)</h2>
+            <p><em>Оберіть одну правильну відповідь. Перевірка та пояснення з'являться автоматично після вашого вибору.</em></p>
+            
+            <div id="final-test-container"></div>
+
+            <div id="final-score-box" style="margin-top: 30px; padding: 20px; background: var(--bg-color); border-radius: 8px; text-align: center; font-size: 1.2rem; font-weight: bold; border: 1px solid var(--border-color);">
+                Загальна кількість правильних відповідей: <span id="correct-counter">0</span> з <span id="total-questions-count">10</span>
+            </div>
+
+            <div class="subpage-arrows">
+                <button class="task-btn" onclick="switchPage(6)">← Назад</button>
+                <div></div>
+            </div>
+        </section>
+
+        <!-- Нижня навігація -->
+        <div class="page-nav">
+            <button class="nav-btn active" onclick="switchPage(1)">Держава: поняття, ознаки</button>
+            <button class="nav-btn" onclick="switchPage(2)">Близькі правові поняття</button>
+            <button class="nav-btn" onclick="switchPage(3)">Функції держави</button>
+            <button class="nav-btn" onclick="switchPage(4)">Форми і методи функцій</button>
+            <button class="nav-btn" onclick="switchPage(5)">Суверенітет та його види</button>
+            <button class="nav-btn" onclick="switchPage(6)">Правова держава і громадянське суспільство</button>
+            <button class="nav-btn" onclick="switchPage(7)">Підсумковий тест</button>
+        </div>
+    </div>
+
+    <button class="scroll-top" id="scrollTopBtn" onclick="scrollToTop()">↑</button>
+
+    <footer>
+        Інтерактивне завдання створено Ольгою Герінбург
+    </footer>
+
+    <script>
+        const finalQuestions = [
+            { 
+                q: "1. Яка сукупність ознак найточніше характеризує державу?", 
+                opts: ["Державна мова, власна валюта, армія, державні символи", "Територія, публічна влада, апарат примусу, податкова система та система права", "Політичні партії, громадські організації, засоби масової інформації", "Єдина ідеологія, державна релігія та централізоване управління"], 
+                ans: 1, 
+                exp: "До обов'язкових ознак держави належать визначена територія, публічна влада, апарат примусу, податкова система та система права. Власна валюта, армія, державна мова й символи не є обов'язковими для кожної держави." 
+            },
+            { 
+                q: "2. Яке твердження правильно розрізняє публічну та державну владу?", 
+                opts: ["Публічна влада здійснюється тільки державними органами", "Державна влада є ширшим поняттям, ніж публічна", "Державна влада є формою публічної влади, а публічна влада охоплює також діяльність органів місцевого самоврядування", "Публічна та державна влада є повністю тотожними поняттями"], 
+                ans: 2, 
+                exp: "Публічна влада є ширшим поняттям. Державна влада здійснюється державними органами, тоді як публічна влада охоплює також місцеве самоврядування." 
+            },
+            { 
+                q: "3. Держава бере участь у міжнародній програмі зі спільного захисту Чорного моря від забруднення. Яку функцію держави реалізують?", 
+                opts: ["Внутрішню соціальну", "Внутрішню економічну", "Зовнішню екологічну", "Зовнішню культурну"], 
+                ans: 2, 
+                exp: "Функція є зовнішньою, оскільки йдеться про міжнародну співпрацю, та екологічною — за сферою суспільних відносин." 
+            },
+            { 
+                q: "4. Держава проводить правопросвітницьку кампанію, під час якої громадянам роз'яснюють їхні права та обов'язки. Який метод здійснення функцій держави використано?", 
+                opts: ["Примус", "Переконання", "Заохочення", "Покарання"], 
+                ans: 1, 
+                exp: "Правова освіта, роз'яснення та профілактична діяльність є проявами методу переконання." 
+            },
+            { 
+                q: "5. Який приклад найточніше характеризує апарат примусу?", 
+                opts: ["Державний університет проводить набір студентів", "Міністерство розробляє державну програму", "Поліція припиняє правопорушення та затримує особу в передбаченому законом порядку", "Парламент приймає закон"], 
+                ans: 2, 
+                exp: "Апарат примусу — спеціально створені державні органи та підрозділи, уповноважені застосовувати передбачені законом заходи примусу." 
+            },
+            { 
+                q: "6. Яка ситуація є ознакою правової держави?", 
+                opts: ["Державний орган може діяти всупереч закону, якщо вважає це необхідним", "Права людини можуть бути обмежені без установленої законом процедури", "Особа має право оскаржити рішення державного органу в суді, а державні органи зобов'язані діяти відповідно до закону", "Державні органи не несуть юридичної відповідальності за свої рішення"], 
+                ans: 2, 
+                exp: "Для правової держави характерні верховенство права, гарантованість прав людини, законність діяльності державних органів та доступний правовий захист." 
+            },
+            { 
+                q: "7. Яке з наведених положень характеризує саме громадянське суспільство?", 
+                opts: ["Поділ державної влади на законодавчу, виконавчу та судову", "Верховенство права та закону", "Самоврядування громадян і добровільних громадських об'єднань", "Провідна роль суду у вирішенні правових спорів"], 
+                ans: 2, 
+                exp: "Самоврядування громадян і добровільних об'єднань є характеристикою громадянського суспільства. Інші варіанти належать до ознак правової держави." 
+            },
+            { 
+                q: "8. Держава ухвалила нормативно-правовий акт, яким встановила нові загальнообов'язкові правила поведінки. Яка форма здійснення державної функції проявилася?", 
+                opts: ["Управлінська", "Правоохоронна", "Правотворча (законодавча)", "Організаційно-контрольна"], 
+                ans: 2, 
+                exp: "Створення та прийняття нормативно-правових актів є правотворчою (законодавчою) формою діяльності держави." 
+            },
+            { 
+                q: "9. Визначте, яке поняття найточніше відповідає прикладу:<br>Конституція, закони, кодекси та підзаконні нормативно-правові акти держави утворюють взаємопов'язану та впорядковану сукупність.", 
+                opts: ["Система права", "Система законодавства", "Правова система", "Механізм держави"], 
+                ans: 1, 
+                exp: "Система законодавства — це сукупність нормативно-правових актів. Система права характеризує внутрішню будову права, а правова система є ширшим поняттям." 
+            },
+            { 
+                q: "10. Яке твердження правильно розрізняє три поняття?", 
+                opts: [
+                    "Механізм держави складається лише з державних органів, а апарат держави охоплює також державні установи", 
+                    "Система законодавства є внутрішньою будовою права, а система права — сукупністю нормативно-правових актів", 
+                    "Правова система охоплює право, законодавство, правові установи, юридичну діяльність, правовідносини, правосвідомість та інші правові явища", 
+                    "Громадянське суспільство є частиною апарату держави"
+                ], 
+                ans: 2, 
+                exp: "Правова система — найширше з трьох понять: вона охоплює взаємопов'язані правові явища, установи, діяльність та правову культуру суспільства." 
+            }
+        ];
+
+        const activeMatches = {
+            t13_b1: { activeTermId: null, pairs: {}, checked: false },
+            t13_b2: { activeTermId: null, pairs: {}, checked: false },
+            t13_b3: { activeTermId: null, pairs: {}, checked: false },
+            t31: { activeTermId: null, pairs: {}, checked: false }
+        };
+
+        const schemaAttempts = {
+            s3: 0,
+            s4: 0
+        };
+
+        function handleMatchClick(el, group, id, type) {
+            const state = activeMatches[group];
+            
+            if (type === 'term') {
+                let isAlreadyPairedKey = null;
+                for(let t in state.pairs) {
+                    if(t === id) isAlreadyPairedKey = t;
+                }
+
+                if (isAlreadyPairedKey) {
+                    delete state.pairs[isAlreadyPairedKey];
+                    if (state.activeTermId === id) state.activeTermId = null;
+                } else {
+                    state.activeTermId = (state.activeTermId === id) ? null : id;
+                }
+            } else if (type === 'def') {
+                let existingTermKey = null;
+                for (let tKey in state.pairs) {
+                    if (state.pairs[tKey] === id) {
+                        existingTermKey = tKey;
+                        break;
+                    }
+                }
+
+                if (existingTermKey) {
+                    delete state.pairs[existingTermKey];
+                }
+
+                if (state.activeTermId) {
+                    state.pairs[state.activeTermId] = id;
+                    state.activeTermId = null;
+                }
+            }
+
+            state.checked = false; 
+            drawMatchLines(group);
+            saveState();
+        }
+
+        function drawMatchLines(group) {
+            const svg = document.getElementById(`svg-${group}`);
+            let containerId = '';
+            if (group === 't13_b1') containerId = 'match-container-1-b1';
+            else if (group === 't13_b2') containerId = 'match-container-1-b2';
+            else if (group === 't13_b3') containerId = 'match-container-1-b3';
+            else if (group === 't31') containerId = 'match-container-3';
+
+            const container = document.getElementById(containerId);
+            if (!svg || !container) return;
+
+            svg.innerHTML = '';
+            const rectContainer = container.getBoundingClientRect();
+
+            const pairs = activeMatches[group].pairs;
+            const activeTermId = activeMatches[group].activeTermId;
+            const isChecked = activeMatches[group].checked;
+
+            container.querySelectorAll('.match-item').forEach(item => {
+                const itemId = item.dataset.id;
+                const isTerm = item.parentElement.previousElementSibling === null || item.getAttribute('onclick').includes('term');
+                
+                item.className = 'match-item';
+                
+                if (!isChecked) {
+                    if (isTerm && itemId === activeTermId) {
+                        item.classList.add('selected');
+                    } else if (isTerm && Object.keys(pairs).includes(itemId)) {
+                        item.classList.add('selected');
+                    } else if (!isTerm && Object.values(pairs).includes(itemId)) {
+                        item.classList.add('selected');
+                    }
+                }
+            });
+
+            for (let termId in pairs) {
+                const defId = pairs[termId];
+                const termEl = container.querySelector(`.matching-column:first-child .match-item[data-id="${termId}"]`);
+                const defEl = container.querySelector(`.matching-column:last-child .match-item[data-id="${defId}"]`);
+
+                if (termEl && defEl) {
+                    const rTerm = termEl.getBoundingClientRect();
+                    const rDef = defEl.getBoundingClientRect();
+
+                    const x1 = rTerm.right - rectContainer.left;
+                    const y1 = (rTerm.top + rTerm.bottom) / 2 - rectContainer.top;
+                    const x2 = rDef.left - rectContainer.left;
+                    const y2 = (rDef.top + rDef.bottom) / 2 - rectContainer.top;
+
+                    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    line.setAttribute('x1', x1);
+                    line.setAttribute('y1', y1);
+                    line.setAttribute('x2', x2);
+                    line.setAttribute('y2', y2);
+
+                    let strokeColor = '#3498DB';
+                    if (isChecked) {
+                        strokeColor = (termId === defId) ? '#2ECC71' : '#E74C3C';
+                        termEl.className = 'match-item ' + (termId === defId ? 'matched-correct' : 'matched-error');
+                        defEl.className = 'match-item ' + (termId === defId ? 'matched-correct' : 'matched-error');
+                    }
+
+                    line.setAttribute('stroke', strokeColor);
+                    line.setAttribute('stroke-width', '3');
+                    svg.appendChild(line);
+                }
+            }
+        }
+
+        function selectSchema(el, group, val) {
+            el.parentElement.querySelectorAll('.schema-card-slot').forEach(e => {
+                e.style.borderColor = 'var(--border-color)';
+                if(!e.classList.contains('correct') && !e.classList.contains('incorrect')) e.classList.remove('incorrect');
+            });
+            el.style.borderColor = 'var(--active-blue)';
+            document.getElementById(group === 's3' ? 't3-schema-val' : 't4-schema-val').value = val;
+            saveState();
+        }
+
+        function selectYN(el, val) {
+            el.parentElement.querySelectorAll('.yn-box').forEach(e => {
+                e.classList.remove('selected', 'correct', 'incorrect');
+            });
+            el.classList.add('selected');
+            document.getElementById('t4-yn-val').value = val;
+            saveState();
+        }
+
+        function switchPage(pageNum) {
+            document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(`page-${pageNum}`).classList.add('active');
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                if(btn.getAttribute('onclick').includes(`(${pageNum})`)) btn.classList.add('active');
+            });
+            
+            localStorage.setItem('activePage', pageNum);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            setTimeout(() => {
+                drawMatchLines('t13_b1');
+                drawMatchLines('t13_b2');
+                drawMatchLines('t13_b3');
+                drawMatchLines('t31');
+            }, 50);
+        }
+
+        function toggleHint(id, fbId) {
+            const hint = document.getElementById(id);
+            hint.classList.toggle('show');
+            if (hint.classList.contains('show') && fbId) {
+                const fb = document.getElementById(fbId);
+                if (fb) fb.innerHTML = '';
+            }
+        }
+
+        function checkTask(taskId) {
+            let correct = true;
+            const fb = document.getElementById(`fb-${taskId}`);
+            
+            if(taskId === 't1-2') {
+                document.querySelectorAll('.t1-2').forEach(sel => {
+                    sel.classList.remove('correct', 'incorrect');
+                    const expDiv = sel.nextElementSibling;
+                    if(expDiv) expDiv.classList.remove('show');
+
+                    if (sel.value === "") {
+                        // залишається нейтральним
+                    } else if(sel.value === sel.dataset.correct) {
+                        sel.classList.add('correct');
+                        if(sel.value === 'optional' && expDiv && sel.dataset.explanation) {
+                            expDiv.textContent = sel.dataset.explanation;
+                            expDiv.classList.add('show');
+                        }
+                    } else {
+                        sel.classList.add('incorrect');
+                        correct = false;
+                    }
+                });
+            } else if(taskId === 't1-3') {
+                activeMatches.t13_b1.checked = true;
+                drawMatchLines('t13_b1');
+                const pairs = activeMatches.t13_b1.pairs;
+                if(Object.keys(pairs).length < 2) {
+                    correct = false;
+                } else {
+                    for(let t in pairs) {
+                        if(pairs[t] !== t) correct = false;
+                    }
+                }
+            } else if(taskId === 't1-3-ex') {
+                document.querySelectorAll('.ex-chk-t13').forEach(chk => {
+                    const shouldBe = chk.dataset.correct === "true";
+                    chk.parentElement.classList.remove('correct-choice', 'incorrect-choice');
+                    let expDiv = chk.parentElement.querySelector('.explanation-text');
+                    if(expDiv) expDiv.remove();
+
+                    if(chk.checked) {
+                        if(shouldBe) {
+                            chk.parentElement.classList.add('correct-choice');
+                        } else {
+                            chk.parentElement.classList.add('incorrect-choice');
+                            correct = false;
+                            if(chk.dataset.explanation) {
+                                let div = document.createElement('div');
+                                div.className = 'explanation-text show';
+                                div.textContent = chk.dataset.explanation;
+                                chk.parentElement.appendChild(div);
+                            }
+                        }
+                    } else {
+                        if(shouldBe) correct = false;
+                    }
+                });
+            } else if(taskId === 't1-4-match') {
+                activeMatches.t13_b2.checked = true;
+                drawMatchLines('t13_b2');
+                const pairs = activeMatches.t13_b2.pairs;
+                if(Object.keys(pairs).length < 3) {
+                    correct = false;
+                } else {
+                    for(let t in pairs) {
+                        if(pairs[t] !== t) correct = false;
+                    }
+                }
+            } else if(taskId === 't1-4-ex') {
+                document.querySelectorAll('.ex-chk-t14').forEach(chk => {
+                    const shouldBe = chk.dataset.correct === "true";
+                    chk.parentElement.classList.remove('correct-choice', 'incorrect-choice');
+                    let expDiv = chk.parentElement.querySelector('.explanation-text');
+                    if(expDiv) expDiv.remove();
+
+                    if(chk.checked) {
+                        if(shouldBe) {
+                            chk.parentElement.classList.add('correct-choice');
+                        } else {
+                            chk.parentElement.classList.add('incorrect-choice');
+                            correct = false;
+                            if(chk.dataset.explanation) {
+                                let div = document.createElement('div');
+                                div.className = 'explanation-text show';
+                                div.textContent = chk.dataset.explanation;
+                                chk.parentElement.appendChild(div);
+                            }
+                        }
+                    } else {
+                        if(shouldBe) correct = false;
+                    }
+                });
+            } else if(taskId === 't1-5-match') {
+                activeMatches.t13_b3.checked = true;
+                drawMatchLines('t13_b3');
+                const pairs = activeMatches.t13_b3.pairs;
+                if(Object.keys(pairs).length < 3) {
+                    correct = false;
+                } else {
+                    for(let t in pairs) {
+                        if(pairs[t] !== t) correct = false;
+                    }
+                }
+            } else if(taskId === 't1-5-ex') {
+                document.querySelectorAll('.ex-chk-t15').forEach(chk => {
+                    const shouldBe = chk.dataset.correct === "true";
+                    chk.parentElement.classList.remove('correct-choice', 'incorrect-choice');
+                    let expDiv = chk.parentElement.querySelector('.explanation-text');
+                    if(expDiv) expDiv.remove();
+
+                    if(chk.checked) {
+                        if(shouldBe) {
+                            chk.parentElement.classList.add('correct-choice');
+                        } else {
+                            chk.parentElement.classList.add('incorrect-choice');
+                            correct = false;
+                            if(chk.dataset.explanation) {
+                                let div = document.createElement('div');
+                                div.className = 'explanation-text show';
+                                div.textContent = chk.dataset.explanation;
+                                chk.parentElement.appendChild(div);
+                            }
+                        }
+                    } else {
+                        if(shouldBe) correct = false;
+                    }
+                });
+            } else if(taskId === 't2-1') {
+                document.querySelectorAll('.t2-1-dir, .t2-1-sphere').forEach(sel => {
+                    sel.classList.remove('correct', 'incorrect');
+                    if (sel.value === "") {
+                        // залишається нейтральним
+                    } else if(sel.value === sel.dataset.correct) {
+                        sel.classList.add('correct');
+                    } else {
+                        sel.classList.add('incorrect');
+                        correct = false;
+                    }
+                });
+            } else if(taskId === 't2-2') {
+                document.querySelectorAll('.m-cell').forEach(c => c.parentElement.classList.remove('correct', 'incorrect'));
+                document.querySelectorAll('.m-form-cell').forEach(f => f.classList.remove('correct', 'incorrect'));
+
+                const matrixRows = [];
+                for(let r=0; r<=11; r++) {
+                    matrixRows.push({
+                        pers: document.querySelector(`.m-cell[data-row="${r}"][data-type="pers"]`),
+                        comp: document.querySelector(`.m-cell[data-row="${r}"][data-type="comp"]`),
+                        enc: document.querySelector(`.m-cell[data-row="${r}"][data-type="enc"]`),
+                        form: document.querySelector(`.m-form-cell[data-row="${r}"]`)
+                    });
+                }
+
+                matrixRows.forEach(r => {
+                    const pOk = (r.pers.checked === (r.pers.dataset.val === 'true'));
+                    const cOk = (r.comp.checked === (r.comp.dataset.val === 'true'));
+                    const eOk = (r.enc.checked === (r.enc.dataset.val === 'true'));
+                    const fOk = (r.form.value === r.form.dataset.correct);
+
+                    if(r.pers.checked) {
+                        if(pOk) r.pers.parentElement.classList.add('correct');
+                        else { r.pers.parentElement.classList.add('incorrect'); correct = false; }
+                    }
+                    if(r.comp.checked) {
+                        if(cOk) r.comp.parentElement.classList.add('correct');
+                        else { r.comp.parentElement.classList.add('incorrect'); correct = false; }
+                    }
+                    if(r.enc.checked) {
+                        if(eOk) r.enc.parentElement.classList.add('correct');
+                        else { r.enc.parentElement.classList.add('incorrect'); correct = false; }
+                    }
+                    if(r.form.value !== "") {
+                        if(fOk) r.form.classList.add('correct');
+                        else { r.form.classList.add('incorrect'); correct = false; }
+                    }
+                });
+            } else if(taskId === 't3-1') {
+                activeMatches.t31.checked = true;
+                drawMatchLines('t31');
+                const pairs = activeMatches.t31.pairs;
+                if(Object.keys(pairs).length < 3) {
+                    correct = false;
+                } else {
+                    for(let t in pairs) {
+                        if(pairs[t] !== t) correct = false;
+                    }
+                }
+            } else if(taskId === 't3-2') {
+                const val = document.getElementById('t3-schema-val').value;
+                const correctVal = "4";
+                if(val !== correctVal) {
+                    correct = false;
+                    schemaAttempts.s3++;
+                    document.querySelectorAll('#grid-s3 .schema-card-slot').forEach(slot => {
+                        if (slot.dataset.val === val) {
+                            slot.classList.add('incorrect');
+                        }
+                    });
+                    if (schemaAttempts.s3 >= 2) {
+                        document.querySelectorAll('#grid-s3 .schema-card-slot').forEach(slot => {
+                            if (slot.dataset.val === correctVal) {
+                                slot.classList.add('correct');
+                            }
+                        });
+                        fb.style.color = "var(--error-red)";
+                        fb.innerHTML = "❌ Вичерпано спроби. Правильна відповідь виділена зеленим, а ваша остання помилкова — червоним.";
+                        saveState();
+                        return;
+                    }
+                } else {
+                    document.querySelectorAll('#grid-s3 .schema-card-slot').forEach(slot => {
+                        slot.classList.remove('incorrect');
+                        if (slot.dataset.val === correctVal) slot.classList.add('correct');
+                    });
+                }
+            } else if(taskId === 't4-1') {
+                const val = document.getElementById('t4-yn-val').value;
+                const box = document.querySelector('.yn-box.selected, .yn-box.correct, .yn-box.incorrect');
+                const expBox = document.getElementById('t4-1-explanation');
+                if(!box) { 
+                    correct = false; 
+                } else {
+                    box.classList.remove('selected', 'correct', 'incorrect');
+                    if(val !== "no") {
+                        box.classList.add('incorrect');
+                        correct = false;
+                        if(expBox) expBox.style.display = 'none';
+                    } else {
+                        box.classList.add('correct');
+                        if(expBox) {
+                            expBox.style.display = 'block';
+                            expBox.innerHTML = "Демократична держава характеризується насамперед народовладдям і участю громадян у здійсненні влади, а правова — верховенством права, обмеженням влади законом та гарантованістю прав і свобод людини.";
+                        }
+                    }
+                }
+            } else if(taskId === 't4-2') {
+                document.querySelectorAll('.t4-feat').forEach(chk => {
+                    const shouldBe = chk.dataset.correct === "true";
+                    chk.parentElement.classList.remove('correct-choice', 'incorrect-choice');
+                    let expDiv = chk.parentElement.querySelector('.explanation-text');
+                    if(expDiv) expDiv.remove();
+
+                    if(chk.checked) {
+                        if(shouldBe) {
+                            chk.parentElement.classList.add('correct-choice');
+                        } else {
+                            chk.parentElement.classList.add('incorrect-choice');
+                            correct = false;
+                            if(chk.dataset.explanation) {
+                                let div = document.createElement('div');
+                                div.className = 'explanation-text show';
+                                div.textContent = chk.dataset.explanation;
+                                chk.parentElement.appendChild(div);
+                            }
+                        }
+                    } else {
+                        if(shouldBe) correct = false;
+                    }
+                });
+            } else if(taskId === 't4-3') {
+                const val = document.getElementById('t4-schema-val').value;
+                const correctVal = "2";
+                if(val !== correctVal) {
+                    correct = false;
+                    schemaAttempts.s4++;
+                    document.querySelectorAll('#grid-s4 .schema-card-slot').forEach(slot => {
+                        if (slot.dataset.val === val) {
+                            slot.classList.add('incorrect');
+                        }
+                    });
+                    if (schemaAttempts.s4 >= 2) {
+                        document.querySelectorAll('#grid-s4 .schema-card-slot').forEach(slot => {
+                            if (slot.dataset.val === correctVal) {
+                                slot.classList.add('correct');
+                            }
+                        });
+                        fb.style.color = "var(--error-red)";
+                        fb.innerHTML = "❌ Вичерпано спроби. Правильна відповідь виділена зеленим, а ваша остання помилкова — червоним.";
+                        saveState();
+                        return;
+                    }
+                } else {
+                    document.querySelectorAll('#grid-s4 .schema-card-slot').forEach(slot => {
+                        slot.classList.remove('incorrect');
+                        if (slot.dataset.val === correctVal) slot.classList.add('correct');
+                    });
+                }
+            }
+
+            fb.style.color = correct ? "var(--success-green)" : "var(--error-red)";
+            if(taskId === 't3-2' || taskId === 't4-3') {
+                if(!correct) {
+                    fb.innerHTML = `❌ Неправильно. Залишилася ${2 - schemaAttempts[taskId === 't3-2' ? 's3' : 's4']} спроба!`;
+                } else {
+                    fb.innerHTML = "✅ Виконано правильно!";
+                }
+            } else {
+                fb.innerHTML = correct ? "✅ Виконано правильно!" : "";
+            }
+            saveState();
+        }
+
+        const userAttempts = {};
+        const userAttempts33 = {};
+
+        function initFinalTest() {
+            const container = document.getElementById('final-test-container');
+            if(!container) return;
+            let html = '';
+            finalQuestions.forEach((item, idx) => {
+                html += `<div class="test-card" id="ft-q-${idx}">
+                    <p><b>${item.q}</b></p>`;
+                item.opts.forEach((opt, oIdx) => {
+                    html += `<label class="test-option">
+                        <input type="radio" name="ft_${idx}" value="${oIdx}" onclick="checkFinalQuestion(${idx}, ${oIdx})"> ${opt}
+                    </label>`;
+                });
+                html += `<div class="explanation-box" id="ft-exp-${idx}"></div></div>`;
+            });
+            container.innerHTML = html;
+
+            for(let i=0; i<4; i++) {
+                const card = document.getElementById(`t33-q${i}`);
+                if(card) {
+                    const radios = card.querySelectorAll('input[type="radio"]');
+                    radios.forEach((r, rIdx) => {
+                        r.setAttribute('onclick', `checkTask33(${i}, ${rIdx})`);
+                    });
+                }
+            }
+        }
+
+        function checkFinalQuestion(idx, chosenOpt) {
+            if(userAttempts[idx] === 'locked') return;
+            if(!userAttempts[idx]) userAttempts[idx] = 0;
+
+            const card = document.getElementById(`ft-q-${idx}`);
+            const options = card.querySelectorAll('.test-option');
+            const expBox = document.getElementById(`ft-exp-${idx}`);
+            const item = finalQuestions[idx];
+
+            options.forEach(opt => opt.classList.remove('correct-choice', 'incorrect-choice'));
+
+            if(chosenOpt === item.ans) {
+                options[chosenOpt].classList.add('correct-choice');
+                expBox.style.display = 'block';
+                expBox.innerHTML = `<b>Правильно!</b> ${item.exp || ''}`;
+                userAttempts[idx] = 'locked';
+                options.forEach(opt => opt.querySelector('input').disabled = true);
+            } else {
+                userAttempts[idx]++;
+                options[chosenOpt].classList.add('incorrect-choice');
+                if(userAttempts[idx] >= 2) {
+                    options[item.ans].classList.add('correct-choice');
+                    expBox.style.display = 'block';
+                    expBox.innerHTML = `<b>Неправильно.</b> ${item.exp || ''}`;
+                    userAttempts[idx] = 'locked';
+                    options.forEach(opt => opt.querySelector('input').disabled = true);
+                } else {
+                    expBox.style.display = 'block';
+                    expBox.innerHTML = `<b>Помилка.</b> Залишилася ще 1 спроба!`;
+                }
+            }
+            updateScoreCounter();
+            saveState();
+        }
+
+        function checkTask33(qIdx, chosenOpt) {
+            if(userAttempts33[qIdx] === 'locked') return;
+            if(!userAttempts33[qIdx]) userAttempts33[qIdx] = 0;
+
+            const card = document.getElementById(`t33-q${qIdx}`);
+            const options = card.querySelectorAll('.test-option');
+            const expBox = card.querySelector('.explanation-box');
+            
+            let correctIdx = 0;
+            options.forEach((opt, i) => {
+                if(opt.querySelector('input').dataset.correct === "true") correctIdx = i;
+            });
+
+            options.forEach(opt => opt.classList.remove('correct-choice', 'incorrect-choice'));
+
+            if(chosenOpt === correctIdx) {
+                options[chosenOpt].classList.add('correct-choice');
+                expBox.style.display = 'block';
+                expBox.innerHTML = `<b>Правильно!</b>`;
+                userAttempts33[qIdx] = 'locked';
+                options.forEach(opt => opt.querySelector('input').disabled = true);
+            } else {
+                userAttempts33[qIdx]++;
+                options[chosenOpt].classList.add('incorrect-choice');
+                if(userAttempts33[qIdx] >= 2) {
+                    options[correctIdx].classList.add('correct-choice');
+                    expBox.style.display = 'block';
+                    expBox.innerHTML = `<b>Неправильно.</b> Правильна відповідь виділена зеленим, а ваша помилкова — червоним.`;
+                    userAttempts33[qIdx] = 'locked';
+                    options.forEach(opt => opt.querySelector('input').disabled = true);
+                } else {
+                    expBox.style.display = 'block';
+                    expBox.innerHTML = `<b>Помилка.</b> Залишилася 1 спроба!`;
+                }
+            }
+            saveState();
+        }
+
+        function updateScoreCounter() {
+            let score = 0;
+            finalQuestions.forEach((item, idx) => {
+                const card = document.getElementById(`ft-q-${idx}`);
+                if(!card) return;
+                const selected = card.querySelector('input:checked');
+                if(selected && parseInt(selected.value) === item.ans) {
+                    score++;
+                }
+            });
+            const counterEl = document.getElementById('correct-counter');
+            if(counterEl) counterEl.textContent = score;
+        }
+
+        function saveState() {
+            const activePage = document.querySelector('.page-section.active').id.replace('page-', '');
+            localStorage.setItem('activePage', activePage);
+
+            const stateData = {
+                selects: {},
+                selectClasses: {},
+                checkboxes: {},
+                checkboxParents: {},
+                exCheckboxes: {},
+                matches: activeMatches,
+                ynVal: document.getElementById('t4-yn-val') ? document.getElementById('t4-yn-val').value : '',
+                ynHtmlClass: document.querySelector('.yn-box.selected, .yn-box.correct, .yn-box.incorrect') ? document.querySelector('.yn-box.selected, .yn-box.correct, .yn-box.incorrect').className : '',
+                t4ExpDisplay: document.getElementById('t4-1-explanation') ? document.getElementById('t4-1-explanation').style.display : 'none',
+                t4ExpHtml: document.getElementById('t4-1-explanation') ? document.getElementById('t4-1-explanation').innerHTML : ''
+            };
+            
+            document.querySelectorAll('select').forEach((el, i) => {
+                stateData.selects[i] = el.value;
+                stateData.selectClasses[i] = el.className;
+            });
+            document.querySelectorAll('input[type="checkbox"]:not(.ex-chk-t13):not(.ex-chk-t14):not(.ex-chk-t15)').forEach((el, i) => {
+                stateData.checkboxes[i] = el.checked;
+                stateData.checkboxParents[i] = el.parentElement.className;
+            });
+            document.querySelectorAll('.ex-chk-t13, .ex-chk-t14, .ex-chk-t15').forEach((el, i) => {
+                stateData.exCheckboxes[i] = { checked: el.checked, parentClass: el.parentElement.className };
+            });
+            
+            localStorage.setItem('appStateData', JSON.stringify(stateData));
+        }
+
+        function restoreState() {
+            const savedPage = localStorage.getItem('activePage');
+            if(savedPage) switchPage(parseInt(savedPage));
+
+            const rawState = localStorage.getItem('appStateData');
+            if(rawState) {
+                try {
+                    const data = JSON.parse(rawState);
+                    if(data.selects) {
+                        document.querySelectorAll('select').forEach((el, i) => {
+                            if(data.selects[i] !== undefined) el.value = data.selects[i];
+                            if(data.selectClasses && data.selectClasses[i]) el.className = data.selectClasses[i];
+                        });
+                    }
+                    if(data.checkboxes) {
+                        document.querySelectorAll('input[type="checkbox"]:not(.ex-chk-t13):not(.ex-chk-t14):not(.ex-chk-t15)').forEach((el, i) => {
+                            if(data.checkboxes[i] !== undefined) el.checked = data.checkboxes[i];
+                            if(data.checkboxParents && data.checkboxParents[i]) el.parentElement.className = data.checkboxParents[i];
+                        });
+                    }
+                    if(data.exCheckboxes) {
+                        document.querySelectorAll('.ex-chk-t13, .ex-chk-t14, .ex-chk-t15').forEach((el, i) => {
+                            if(data.exCheckboxes[i]) {
+                                el.checked = data.exCheckboxes[i].checked;
+                                el.parentElement.className = data.exCheckboxes[i].parentClass;
+                            }
+                        });
+                    }
+                    if(data.matches) {
+                        if(data.matches.t13_b1) activeMatches.t13_b1 = data.matches.t13_b1;
+                        if(data.matches.t13_b2) activeMatches.t13_b2 = data.matches.t13_b2;
+                        if(data.matches.t13_b3) activeMatches.t13_b3 = data.matches.t13_b3;
+                        if(data.matches.t31) activeMatches.t31 = data.matches.t31;
+                        drawMatchLines('t13_b1');
+                        drawMatchLines('t13_b2');
+                        drawMatchLines('t13_b3');
+                        drawMatchLines('t31');
+                    }
+                    if(data.ynVal) {
+                        const ynInput = document.getElementById('t4-yn-val');
+                        if(ynInput) ynInput.value = data.ynVal;
+                        document.querySelectorAll('.yn-box').forEach(box => {
+                            if((data.ynVal === 'yes' && box.textContent.includes('Так')) || (data.ynVal === 'no' && box.textContent.includes('Ні'))) {
+                                box.className = data.ynHtmlClass || 'yn-box selected';
+                            }
+                        });
+                    }
+                    if(data.t4ExpDisplay && document.getElementById('t4-1-explanation')) {
+                        const expBox = document.getElementById('t4-1-explanation');
+                        expBox.style.display = data.t4ExpDisplay;
+                        if(data.t4ExpHtml) expBox.innerHTML = data.t4ExpHtml;
+                    }
+                } catch(e) {}
+            }
+        }
+
+        function resetAllProgress() {
+            if(confirm("Бажаєте почати заново? Усі відповіді будуть скинуті.")) {
+                localStorage.clear();
+                window.location.reload();
+            }
+        }
+
+        window.onscroll = function() {
+            const btn = document.getElementById('scrollTopBtn');
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                btn.classList.add('visible');
+            } else {
+                btn.classList.remove('visible');
+            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.onload = function() {
+            initFinalTest();
+            restoreState();
+            document.querySelectorAll('select, input').forEach(el => {
+                el.addEventListener('change', saveState);
+            });
+        };
+    </script>
+</body>
+</html>
